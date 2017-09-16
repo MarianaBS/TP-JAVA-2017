@@ -26,7 +26,7 @@ public class DataReserva {
 		 			r.setDetalle(rs.getString("detalle"));
 		 			r.setEstado(rs.getString("estado"));
 		 			r.setFecha(rs.getDate("fecha"));
-		 			r.setHora(rs.getDate("hora"));
+		 			r.setHora(rs.getTime("hora"));
 		 			r.getElemento().setIdelemento(rs.getInt("id_elemento"));
 		 			r.getElemento().setNombre(rs.getString("nombre"));
 		 			r.getPersona().setIdpersona(rs.getInt("idpersona"));
@@ -59,12 +59,12 @@ public class DataReserva {
  					+ "values (?,?,?,?,?,?)",
  					PreparedStatement.RETURN_GENERATED_KEYS
  					);
- 			stmt.setDate(1, (Date) r.getFecha());
- 			stmt.setDate(2, (Date) r.getHora());
+ 			stmt.setDate(1, r.getFecha());
+ 			stmt.setTime(2, r.getHora());
  			stmt.setInt(3, r.getPersona().getIdpersona());
  			stmt.setInt(4, r.getElemento().getIdelemento());
- 			stmt.setString(5, r.getDetalle());
- 			stmt.setString(6, r.getEstado());
+ 			stmt.setString(5, r.getEstado());
+ 			stmt.setString(6, r.getDetalle());
   			stmt.executeUpdate();
  			keyResultSet=stmt.getGeneratedKeys();
  			if(keyResultSet!=null && keyResultSet.next()){

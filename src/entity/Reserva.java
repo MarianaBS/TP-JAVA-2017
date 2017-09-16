@@ -6,12 +6,12 @@ import java.sql.Time;
 public class Reserva {
 	private int id_reserva;
 	private Date fecha;
-	private Date hora;
+	private Time hora;
 	private String estado;
 	private String detalle;
 	private Elemento elemento;
 	private Persona persona;
-	private Time horaT;
+	//private Time horaT;
 	
 	
 	public int getId_reserva() {
@@ -26,10 +26,10 @@ public class Reserva {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public Date getHora() {
+	public Time getHora() {
 		return hora;
 	}
-	public void setHora(Date hora) {
+	public void setHora(Time hora) {
 		this.hora = hora;
 	}
 	public String getEstado() {
@@ -60,10 +60,6 @@ public class Reserva {
 	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
-	public void setHoraT(Time ti) {
-		// TODO Auto-generated method stub
-		this.horaT=ti;
-	};
 	
 
 }

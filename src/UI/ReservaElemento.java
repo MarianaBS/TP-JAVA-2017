@@ -32,6 +32,7 @@ import javax.swing.JTextField;
 
 //import com.toedter.calendar.JDateChooser;
 
+
 import controlers.CtrlABMElemento;
 import controlers.CtrlABMPersona;
 import controlers.CtrlReserva;
@@ -42,6 +43,7 @@ import javax.swing.JLayeredPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.Date;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -269,7 +271,7 @@ public class ReservaElemento extends JInternalFrame {
 	 			r.setId_reserva(Integer.parseInt(this.txtId.getText()));
 	 		}
 	 		
-	 		 SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+	 		 /*SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 	         java.util.Date parsed = format.parse(this.txtFecha.getText());
 	         java.sql.Date sqlFecha = new java.sql.Date(parsed.getTime());
 	         
@@ -280,7 +282,13 @@ public class ReservaElemento extends JInternalFrame {
 	        java.sql.Date sqlHora = new java.sql.Date(pars.getTime());
 
 	 		
-	 		r.setHora(sqlHora);
+	 		r.setHora(sqlHora);*/
+	 		
+	 		java.sql.Date fecha = Date.valueOf(this.txtFecha.getText());
+	 		java.sql.Time hora = Time.valueOf(this.txtHora.getText());
+	 		
+	 		r.setFecha(fecha);
+	 		r.setHora(hora);
 	 		
 	 		CtrlABMPersona cper=new CtrlABMPersona();
 	 		String str="987654";
