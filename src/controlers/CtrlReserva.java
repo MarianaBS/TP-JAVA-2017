@@ -54,5 +54,5 @@ public class CtrlReserva {
 		return dataEle.getByTipo(t);
 	}
 	
-	}
+}
 	
