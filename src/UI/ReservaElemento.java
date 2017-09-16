@@ -271,29 +271,23 @@ public class ReservaElemento extends JInternalFrame {
 	 			r.setId_reserva(Integer.parseInt(this.txtId.getText()));
 	 		}
 	 		
-	 		 /*SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-	         java.util.Date parsed = format.parse(this.txtFecha.getText());
-	         java.sql.Date sqlFecha = new java.sql.Date(parsed.getTime());
-	         
-	         r.setFecha(sqlFecha);
-
-	 		SimpleDateFormat f = new SimpleDateFormat("HHmmss");
-	        java.util.Date pars = f.parse(this.txtHora.getText());
-	        java.sql.Date sqlHora = new java.sql.Date(pars.getTime());
+	 		
+	 		 java.sql.Date fecha = convertirFecha(this.txtFecha.getText());
+	         r.setFecha(fecha);
 
 	 		
-	 		r.setHora(sqlHora);*/
+	         java.sql.Time hora = convertirHora(this.txtHora.getText());
+   	 		 r.setHora(hora);
 	 		
-	 		java.sql.Date fecha = Date.valueOf(this.txtFecha.getText());
-	 		java.sql.Time hora = Time.valueOf(this.txtHora.getText());
+	 		//java.sql.Date fecha = Date.valueOf(this.txtFecha.getText());
+	 		//java.sql.Time hora = Time.valueOf(this.txtHora.getText());
 	 		
-	 		r.setFecha(fecha);
-	 		r.setHora(hora);
+	 		//r.setFecha(fecha);
+	 		//r.setHora(hora);
 	 		
 	 		CtrlABMPersona cper=new CtrlABMPersona();
-	 		String str="987654";
-	 		
-	 		r.setPersona(cper.getByDni(str));
+	 		 		
+	 		r.setPersona(cper.getByDni("987654"));
 	 		
 	 		if (cboElementos.getSelectedIndex() != -1){
 	 			 r.setElemento((Elemento)cboElementos.getSelectedItem());
@@ -302,5 +296,18 @@ public class ReservaElemento extends JInternalFrame {
 			
 			
 	 		}
+		private java.sql.Date convertirFecha(String f) throws ParseException {
+			SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+	         java.util.Date parsed = format.parse(f);
+	         java.sql.Date fecha = new java.sql.Date(parsed.getTime());
+			return fecha;
+		}
+		
+		private java.sql.Time convertirHora(String h) throws ParseException {
+			SimpleDateFormat f = new SimpleDateFormat("HHmm");
+	        java.util.Date pars = f.parse(h);
+	        java.sql.Time hora = new java.sql.Time(pars.getTime());
+			return hora;
+		}
 }
 
