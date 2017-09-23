@@ -33,6 +33,8 @@ import javax.swing.JTextField;
 //import com.toedter.calendar.JDateChooser;
 
 
+
+
 import controlers.CtrlABMElemento;
 import controlers.CtrlABMPersona;
 import controlers.CtrlReserva;
@@ -47,6 +49,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.TimeZone;
 
 public class ReservaElemento extends JInternalFrame {
@@ -241,9 +244,14 @@ public class ReservaElemento extends JInternalFrame {
 		 Tipo_Elemento te=new Tipo_Elemento();
 		 if (cboTipos.getSelectedIndex() != -1){
  			 te=(Tipo_Elemento)cboTipos.getSelectedItem();
- 					 
-			this.cboElementos.setModel(new DefaultComboBoxModel<Object>(this.ctrl.getElementos(te).toArray()));
+ 			 java.sql.Date fecha = convertirFecha(this.txtFecha.getText());
+ 			 java.sql.Time hora = convertirHora(this.txtHora.getText());
+ 			
+ 			 //ArrayList<Elemento> c=this.ctrl.getElementos(te);
+ 			 			 
+			this.cboElementos.setModel(new DefaultComboBoxModel<Object>(this.ctrl.getElemDisponibles(fecha, hora, ctrl.getElementos(te)).toArray()));
 			this.cboElementos.setSelectedIndex(-1);
+			
 		} } 
 		 catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Error recuperando Elementos");
@@ -256,7 +264,11 @@ public class ReservaElemento extends JInternalFrame {
 			// TODO Auto-generated method stub
 			Reserva r=this.mapearDeForm();
 	 		try{
+	 			if(ctrl.validar(r)){
+	 			r.setEstado("pendiente");
 	 			ctrl.add(r);
+	 			}
+	 			else JOptionPane.showMessageDialog(this, "No cumple con las cantidad de días de anticipación");
 	 			} catch (Exception e) {
 	 			JOptionPane.showMessageDialog(this, "No se pudo guardar");
 	 			}
@@ -264,17 +276,16 @@ public class ReservaElemento extends JInternalFrame {
 	 			 		
 	 			 	}
 		
+		
 		private Reserva mapearDeForm() throws Exception {
 			// TODO Auto-generated method stub
 			Reserva r=new Reserva();
 	 		if(!this.txtId.getText().isEmpty()){
 	 			r.setId_reserva(Integer.parseInt(this.txtId.getText()));
 	 		}
-	 		
-	 		
+	 			 		
 	 		 java.sql.Date fecha = convertirFecha(this.txtFecha.getText());
 	         r.setFecha(fecha);
-
 	 		
 	         java.sql.Time hora = convertirHora(this.txtHora.getText());
    	 		 r.setHora(hora);
@@ -285,23 +296,25 @@ public class ReservaElemento extends JInternalFrame {
 	 		//r.setFecha(fecha);
 	 		//r.setHora(hora);
 	 		
-	 		CtrlABMPersona cper=new CtrlABMPersona();
-	 		 		
-	 		r.setPersona(cper.getByDni("987654"));
+	 		 CtrlABMPersona cper=new CtrlABMPersona(); 		
+	 		 r.setPersona(cper.getByDni("987654"));
 	 		
-	 		if (cboElementos.getSelectedIndex() != -1){
+	 		 if (cboElementos.getSelectedIndex() != -1){
 	 			 r.setElemento((Elemento)cboElementos.getSelectedItem());
 	 			 }
-	 		return r;
+	 		 return r;
 			
 			
 	 		}
+		
+		
 		private java.sql.Date convertirFecha(String f) throws ParseException {
 			SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 	         java.util.Date parsed = format.parse(f);
 	         java.sql.Date fecha = new java.sql.Date(parsed.getTime());
 			return fecha;
 		}
+
 		
 		private java.sql.Time convertirHora(String h) throws ParseException {
 			SimpleDateFormat f = new SimpleDateFormat("HHmm");

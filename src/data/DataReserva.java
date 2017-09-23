@@ -1,6 +1,8 @@
 package data;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.sql.*;
+import java.util.Date;
 
 import util.AppDataException;
 import entity.*;
@@ -102,6 +104,64 @@ public class DataReserva {
  			e.printStackTrace();
  		}
  	}
+
+ 	
+	public ArrayList<Elemento> getElemDisponibles(Date f,Time h,ArrayList<Elemento> elem) throws Exception
+	{
+		Statement stmt=null;
+		ResultSet rs=null;
+		ArrayList<Elemento>e=new ArrayList<Elemento>();
+		
+		//for (int i=0; i<elem.size();i++){
+			
+		stmt = FactoryConexion.getInstancia().getConn().createStatement();
+		 	/*rs = stmt.executeQuery("select * from elementos e inner join tipo_elemento te "
+		 			+ "on e.idtipo_elemento=e.te.idtipo_elemento where e.idelemento='" + elem.get(i).getIdelemento() +
+		 			" and e.idelemento not in (select * reservas where fecha='" + f + "and hora='"+ h +")");*/
+		rs = stmt.executeQuery("select * from elementos e inner join tipo_elemento te "
+	 			+ "on e.idtipo_elemento=te.idtipo_elemento where idelemento not in "
+	 			+ "(select id_elemento from reservas where fecha='" + f + "'and hora='"+ h +"')");
+	
+		 		if(rs!=null){
+			 		while(rs.next()){
+			 			Elemento el=new Elemento();
+			 			el.setTipo_Elem(new Tipo_Elemento());
+			 			el.setIdelemento(rs.getInt("idelemento"));
+			 			el.setNombre(rs.getString("nombre"));
+			 			el.getTipo_Elem().setIdtipo_elemento(rs.getInt("idtipo_elemento"));
+			 			el.getTipo_Elem().setNombre_tipo(rs.getString("nombre_tipo"));
+			 			e.add(el);
+			  		}
+						try {
+						if(rs!=null)rs.close();
+						if(stmt!=null)stmt.close();
+						FactoryConexion.getInstancia().releaseConn();
+						} catch (SQLException ex) {
+							ex.printStackTrace();
+				 		}
+						 		
+		 		}
+		 	 ArrayList <Elemento> edisp=new ArrayList<Elemento>();
+		 			
+				for (int i=0; i<e.size();i++)
+				{ if (elem.contains(e.get(i)))edisp.add(e.get(i));}
+				
+		return edisp;		
+			
+	}
+	public boolean validar(Reserva r) {
+		// TODO Auto-generated method stub
+		int dias=r.getElemento().getTipo_Elem().getDias_anticip();
+		java.util.Date hoy=new Date();
+		Calendar cal=Calendar.getInstance();
+		cal.setTime(hoy);
+		cal.add(Calendar.DAY_OF_YEAR, dias);
+		if (r.getFecha().after(cal.getTime()))
+			return true;
+		else
+		
+		return false;
+	}
 	
 	
 	

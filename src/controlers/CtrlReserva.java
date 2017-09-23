@@ -1,5 +1,7 @@
 package controlers;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 
 import data.DataElemento;
@@ -44,15 +46,27 @@ public class CtrlReserva {
 		return dataRes.getAll();
 			}
 
-	public ArrayList<Tipo_Elemento>getTipos() throws Exception{ {
+	public ArrayList<Tipo_Elemento>getTipos() throws Exception{ 
 		// TODO Auto-generated method stub
 		return dataTip.getAll();
 	}
+	
+	public boolean validar(Reserva r){
+		
+		return dataRes.validar(r);
+	
 	}
+	
 	
 	public ArrayList<Elemento> getElementos(Tipo_Elemento t) throws Exception{
 		return dataEle.getByTipo(t);
+	}	
+	
+	public ArrayList<Elemento> getElemDisponibles(Date f, Time h,ArrayList<Elemento>el) throws Exception
+		{ return dataRes.getElemDisponibles(f, h, el);
+		}
+	
 	}
 	
-}
+
 	

@@ -55,6 +55,12 @@ frmSistemaDeReservas.getContentPane().add(desktopPane, BorderLayout.CENTER);
 
 JMenuBar menuBar = new JMenuBar();
 frmSistemaDeReservas.setJMenuBar(menuBar);
+JMenu mnuInicio = new JMenu("Inicio");
+menuBar.add(mnuInicio);
+JMenuItem mnuCerrarSesion = new JMenuItem("Cerrar Sesi\u00F3n");
+mnuInicio.add(mnuCerrarSesion);
+JMenuItem mnuSalir = new JMenuItem("Salir");
+mnuInicio.add(mnuSalir);
 JMenu mnuPersona = new JMenu("Personas");
 menuBar.add(mnuPersona);
 JMenuItem mnuABMCPersona = new JMenuItem("ABMCPersonas");
@@ -159,5 +165,6 @@ protected void mnuReservaElementoClick() {
 	ReservaElemento rel=new ReservaElemento();
 	desktopPane.add(rel);
 	rel.setVisible(true);
-};}
+}
+}
 
