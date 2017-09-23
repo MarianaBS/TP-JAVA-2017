@@ -75,13 +75,16 @@ public ListadoTipos() {
  }
  protected void btnEditarClick() {
  int indexTipo=table.convertRowIndexToModel(table.getSelectedRow());
+ if (indexTipo != -1){
  
  ABMCTipoElemento tip= new ABMCTipoElemento();
  tip.showTipo(this.ti.get(indexTipo));
  
  this.getDesktopPane().add(tip);
- tip.setVisible(true);
- 		
+ tip.setVisible(true);}
+ else {
+	 JOptionPane.showMessageDialog(this, "Selecione un Tipo de Elemento"); }
+		
  }
  protected void initDataBindings() {
  JTableBinding<Tipo_Elemento, List<Tipo_Elemento>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, ti, table);

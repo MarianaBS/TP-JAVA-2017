@@ -75,14 +75,19 @@ public class ListadoElementos extends JInternalFrame {
 	
 	 protected void btnEditarClick() {
 	 int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
+	 if (indexElemento != -1) {
 	 
 	 ABMCElementos le= new ABMCElementos();
 	 le.showElemento(this.elem.get(indexElemento));
 	 
 	 this.getDesktopPane().add(le);
-	 le.setVisible(true);
-	 		
+	 le.setVisible(true);}
+	 else {
+		 JOptionPane.showMessageDialog(this, "Selecione un Elemento"); }
+
 	 }
+	 		
+
 	protected void initDataBindings() {
 		org.jdesktop.swingbinding.JTableBinding<entity.Elemento, java.util.List<entity.Elemento>, javax.swing.JTable> jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, elem, table);
 		//

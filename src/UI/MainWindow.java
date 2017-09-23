@@ -58,8 +58,18 @@ frmSistemaDeReservas.setJMenuBar(menuBar);
 JMenu mnuInicio = new JMenu("Inicio");
 menuBar.add(mnuInicio);
 JMenuItem mnuCerrarSesion = new JMenuItem("Cerrar Sesi\u00F3n");
+mnuCerrarSesion.addActionListener(new ActionListener() {
+	public void actionPerformed(ActionEvent e) {
+		mnuCerrarSesionClick();
+	}
+});
 mnuInicio.add(mnuCerrarSesion);
 JMenuItem mnuSalir = new JMenuItem("Salir");
+mnuSalir.addActionListener(new ActionListener() {
+	public void actionPerformed(ActionEvent arg0) {
+		mnuSalirClick();
+	}
+});
 mnuInicio.add(mnuSalir);
 JMenu mnuPersona = new JMenu("Personas");
 menuBar.add(mnuPersona);
@@ -126,6 +136,13 @@ JMenuItem mnuReservasPendientes = new JMenuItem("Reservas pendientes");
 mnuReservas.add(mnuReservasPendientes);
 }
 
+protected void mnuCerrarSesionClick() {
+	// TODO Auto-generated method stub
+	Login l=new Login();
+	desktopPane.add(l);
+	l.setVisible(true);
+}
+
 protected void mnuABMCPersonaClick() {
 ABMCPersonaDesktop pd= new ABMCPersonaDesktop();
 desktopPane.add(pd);
@@ -165,6 +182,11 @@ protected void mnuReservaElementoClick() {
 	ReservaElemento rel=new ReservaElemento();
 	desktopPane.add(rel);
 	rel.setVisible(true);
+}
+
+private void mnuSalirClick() {
+	// TODO Auto-generated method stub
+	//this.close();
 }
 }
 
