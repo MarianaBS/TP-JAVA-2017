@@ -299,9 +299,14 @@ public class ReservaElemento extends JInternalFrame {
 	 		 CtrlABMPersona cper=new CtrlABMPersona(); 		
 	 		 r.setPersona(cper.getByDni("987654"));
 	 		
-	 		 if (cboElementos.getSelectedIndex() != -1){
+	 		 if (cboElementos.getSelectedIndex() != -1)
+	 		 {
 	 			 r.setElemento((Elemento)cboElementos.getSelectedItem());
-	 			 }
+	 		}
+	 		 else
+	 		{
+	 			 JOptionPane.showMessageDialog(this, "Complete campo Fecha, Hora y Tipo de elemento");	 
+	 		}
 	 		 return r;
 			
 			
