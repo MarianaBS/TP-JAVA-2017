@@ -23,6 +23,9 @@ import controlers.CtrlABMElemento;
 import entity.Elemento;
 import entity.Tipo_Elemento;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 public class ABMCElementos extends JInternalFrame {
 	private CtrlABMElemento ctrl=new CtrlABMElemento();
 
@@ -72,6 +75,19 @@ public class ABMCElementos extends JInternalFrame {
 		JLabel lblNombre = new JLabel("Nombre");
 		
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent ke) {
+				char c=ke.getKeyChar(); 
+	             
+		          if(Character.isDigit(c)) { 
+		              getToolkit().beep(); 
+		               ke.consume(); 
+		              }
+		
+			}
+			}
+		);
 		txtNombre.setColumns(10);
 		
 		JLabel lblTipo = new JLabel("Tipo Elemento");

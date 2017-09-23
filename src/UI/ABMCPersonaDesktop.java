@@ -27,6 +27,8 @@ import org.jdesktop.beansbinding.AutoBinding;
 import controlers.CtrlABMPersona;
 import entity.Categoria;
 import entity.Persona;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 public class ABMCPersonaDesktop extends JInternalFrame {
@@ -77,6 +79,16 @@ public static void main(String[] args) {
  		JLabel lblDni = new JLabel("DNI");
  		
  		txtDni = new JTextField();
+ 		txtDni.addKeyListener(new KeyAdapter() {
+ 			@Override
+ 			public void keyTyped(KeyEvent ke) {
+ 				 char c=ke.getKeyChar(); 
+ 	             
+ 		          if(Character.isLetter(c)) { 
+ 		              getToolkit().beep(); 
+ 		               ke.consume(); 
+ 		              }
+ 		}});
  		txtDni.setColumns(10);
  		
  		JLabel lblNombre = new JLabel("Nombre");
@@ -84,9 +96,34 @@ public static void main(String[] args) {
  		JLabel lblApellido = new JLabel("Apellido");
  		
  		txtNombre = new JTextField();
+ 		txtNombre.addKeyListener(new KeyAdapter() {
+ 			@Override
+ 			public void keyTyped(KeyEvent ke) {
+ 					 char c=ke.getKeyChar(); 
+ 	 	             
+ 	 		          if(Character.isDigit(c)) { 
+ 	 		              getToolkit().beep(); 
+ 	 		               ke.consume(); 
+ 	 		              }
+ 	 		}
+ 			}
+ 		);
  		txtNombre.setColumns(10);
  		
  		txtApellido = new JTextField();
+ 		txtApellido.addKeyListener(new KeyAdapter() {
+ 			@Override
+ 			public void keyTyped(KeyEvent ke) {
+ 				char c=ke.getKeyChar(); 
+ 	             
+		          if(Character.isDigit(c)) { 
+		              getToolkit().beep(); 
+		               ke.consume(); 
+		              }
+		}
+ 				
+ 			}
+ 		);
  		txtApellido.setColumns(10);
  		
  		chkHabilitado = new JCheckBox("Habilitado");

@@ -20,10 +20,15 @@ import java.awt.event.MouseEvent;
 
 
 
+
+
 import javax.swing.JFrame;
 
 import controlers.CtrlABMTipoElemento;
 import entity.Tipo_Elemento;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ABMCTipoElemento extends JInternalFrame {
 	
@@ -79,21 +84,70 @@ public class ABMCTipoElemento extends JInternalFrame {
 		JLabel lblNombre = new JLabel("Nombre");
 		
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent ke) {
+				char c=ke.getKeyChar(); 
+ 	             
+		          if(Character.isDigit(c)) { 
+		              getToolkit().beep(); 
+		               ke.consume(); 
+		              }
+		}
+			}
+		);
 		txtNombre.setColumns(10);
 		
 		JLabel lblCantmax = new JLabel("Cant.max.");
 		
 		txtCantMax = new JTextField();
+		txtCantMax.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent ke) {
+				char c=ke.getKeyChar(); 
+ 	             
+		          if(Character.isLetter(c)) { 
+		              getToolkit().beep(); 
+		               ke.consume(); 
+		              }
+		
+			}
+		});
 		txtCantMax.setColumns(10);
 		
 		JLabel lblTiempoLmite = new JLabel("Tiempo l\u00EDmite");
 		
 		txtLimite = new JTextField();
+		txtLimite.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent ke) {
+				char c=ke.getKeyChar(); 
+	             
+		          if(Character.isLetter(c)) { 
+		              getToolkit().beep(); 
+		               ke.consume(); 
+		              }
+		
+				}
+		});
 		txtLimite.setColumns(10);
 		
 		JLabel lblAnticipacindas = new JLabel("Anticipaci\u00F3n (d\u00EDas)");
 		
 		txtDiasAntic = new JTextField();
+		txtDiasAntic.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent ke) {
+				char c=ke.getKeyChar(); 
+	             
+		          if(Character.isLetter(c)) { 
+		              getToolkit().beep(); 
+		               ke.consume(); 
+		              }
+		
+			
+			}
+		});
 		txtDiasAntic.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
