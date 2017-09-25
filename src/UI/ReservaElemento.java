@@ -11,6 +11,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextPane;
@@ -65,6 +66,8 @@ public class ReservaElemento extends JInternalFrame {
 	private JTextField txtHora;
 	private JComboBox cboTipos;
 	private JComboBox cboElementos;
+
+	private JComponent btnAceptar;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -101,6 +104,7 @@ public class ReservaElemento extends JInternalFrame {
 		JLabel lblDetalle = new JLabel("Detalle");
 		
 		cboElementos = new JComboBox();
+		cboElementos.setEnabled(false);
 		
 		JTextArea txtDetalle = new JTextArea();
 		txtDetalle.setRows(2);
@@ -123,6 +127,7 @@ public class ReservaElemento extends JInternalFrame {
  			public void mouseClicked(MouseEvent e) {
  				try {
 					aceptarClick();
+				
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -240,19 +245,36 @@ public class ReservaElemento extends JInternalFrame {
 	 }
 	
 	 private void buscarClick() {
-		 try {
-		 Tipo_Elemento te=new Tipo_Elemento();
-		 if (cboTipos.getSelectedIndex() != -1){
- 			 te=(Tipo_Elemento)cboTipos.getSelectedItem();
- 			 java.sql.Date fecha = convertirFecha(this.txtFecha.getText());
- 			 java.sql.Time hora = convertirHora(this.txtHora.getText());
- 			
- 			 //ArrayList<Elemento> c=this.ctrl.getElementos(te);
- 			 			 
-			this.cboElementos.setModel(new DefaultComboBoxModel<Object>(this.ctrl.getElemDisponibles(fecha, hora, ctrl.getElementos(te)).toArray()));
-			this.cboElementos.setSelectedIndex(-1);
+		 try 
+		 {
+		
+		 int validar=this.ctrl.validarBotonBuscar(cboTipos.getSelectedIndex(), txtFecha.getText(), txtHora.getText());
+		 if (validar==1)
+		 {
+			 JOptionPane.showMessageDialog(this, "Seleccione un Tipo de Elemento");  
+			 this.cboElementos.setEnabled(false);
+		 }
+		 else if(validar==2)
+		 {
+			 JOptionPane.showMessageDialog(this, "Verifique hora y fecha");  
+			 this.cboElementos.setEnabled(false);
+		 }
+		 else if(validar==3)
+		 {
+			 Tipo_Elemento te=new Tipo_Elemento();
+			 te=(Tipo_Elemento)cboTipos.getSelectedItem();
+			 java.sql.Date fecha = convertirFecha(this.txtFecha.getText());
+			 java.sql.Time hora = convertirHora(this.txtHora.getText());
 			
-		} } 
+			    //ArrayList<Elemento> c=this.ctrl.getElementos(te);
+			 			 
+			  this.cboElementos.setModel(new DefaultComboBoxModel<Object>(this.ctrl.getElemDisponibles(fecha, hora, ctrl.getElementos(te)).toArray()));
+			  this.cboElementos.setSelectedIndex(-1);
+			  this.cboElementos.setEnabled(true);
+		 }
+
+		 }
+		 
 		 catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Error recuperando Elementos");
 	 		
@@ -263,13 +285,16 @@ public class ReservaElemento extends JInternalFrame {
 		private void aceptarClick() throws Exception {
 			// TODO Auto-generated method stub
 			Reserva r=this.mapearDeForm();
-	 		try{
+	 
 	 			if(ctrl.validar(r)){
+	 				
 	 			r.setEstado("pendiente");
 	 			ctrl.add(r);
+	 			JOptionPane.showMessageDialog(this, "Su reserva fue registrada");
+	 				
 	 			}
-	 			else JOptionPane.showMessageDialog(this, "No cumple con las cantidad de días de anticipación");
-	 			} catch (Exception e) {
+	 			else 
+	 			{	JOptionPane.showMessageDialog(this, "No cumple con las cantidad de días de anticipación");
 	 			JOptionPane.showMessageDialog(this, "No se pudo guardar");
 	 			}
 	 			this.txtId.setText(String.valueOf(r.getId_reserva()));
@@ -297,15 +322,18 @@ public class ReservaElemento extends JInternalFrame {
 	 		//r.setHora(hora);
 	 		
 	 		 CtrlABMPersona cper=new CtrlABMPersona(); 		
-	 		 r.setPersona(cper.getByDni("987654"));
+	 		 r.setPersona(cper.getByDni("121212"));
 	 		
-	 		 if (cboElementos.getSelectedIndex() != -1)
+	 		 	if (cboElementos.getSelectedIndex() != -1)
 	 		 {
+	 		 		
 	 			 r.setElemento((Elemento)cboElementos.getSelectedItem());
+	 		 	//r.setElemento((Elemento)cboElementos.getSelectedIndex());	
+	 		 	
 	 		}
 	 		 else
 	 		{
-	 			 JOptionPane.showMessageDialog(this, "Complete campo Fecha, Hora y Tipo de elemento");	 
+	 			 JOptionPane.showMessageDialog(this, "Seleccione un elemento");	 
 	 		}
 	 		 return r;
 			
