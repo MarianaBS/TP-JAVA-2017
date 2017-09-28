@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 import data.DataElemento;
 import data.DataPersona;
 import data.DataReserva;
@@ -70,6 +73,7 @@ public class CtrlReserva {
 	public ArrayList<Elemento> getElemDisponibles(Date f, Time h,ArrayList<Elemento>el) throws Exception
 		{ return dataRes.getElemDisponibles(f, h, el);
 		}
+
 	
 	
 	public int validarBotonBuscar(int cboTipos , String fecha,String hora) {
@@ -85,5 +89,4 @@ public class CtrlReserva {
 	
 	}
 	
-
 	

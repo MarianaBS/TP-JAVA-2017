@@ -19,15 +19,11 @@ import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
-
 import controlers.CtrlReserva;
-import entity.Persona;
 import entity.Reserva;
-
-import java.sql.Date;
-import java.sql.Time;
-
 import entity.Elemento;
+import java.sql.*;
+
 
 public class ReservasPendientes extends JInternalFrame {
 
@@ -36,6 +32,7 @@ public class ReservasPendientes extends JInternalFrame {
 	CtrlReserva ctrl=new CtrlReserva();
 	
 	private JTable table;
+
 
 	public ReservasPendientes() {
 		setTitle("Reservas Pendientes");

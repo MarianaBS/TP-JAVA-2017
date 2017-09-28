@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.Date;
 
 import util.AppDataException;
+import util.Fechas;
 import entity.*;
  
 
@@ -61,10 +62,17 @@ public class DataReserva {
 	public void add(Reserva r) throws Exception{
  		PreparedStatement stmt=null;
  		ResultSet keyResultSet=null;
+ 		/*System.out.println(r.getFecha());
+ 		System.out.println(r.getHora());
+ 		System.out.println(r.getPersona().getIdpersona());
+ 		System.out.println(r.getElemento().getIdelemento());
+ 		System.out.println(r.getEstado());
+ 		PARA CHEQUEAR LOS DATOS QUE SE TRAE DE LA BASE DE DATO */
+ 		
  		try {
  			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
- 					"insert into reservas(fecha, hora, id_persona, id_elemento, estado, detalle) "
- 					+ "values (?,?,?,?,?,?)",
+ 					"insert into reservas(fecha, hora, id_persona, id_elemento, estado) "
+ 					+ "values (?,?,?,?,?)",
  					PreparedStatement.RETURN_GENERATED_KEYS
  					);
  			stmt.setDate(1, r.getFecha());
@@ -72,14 +80,16 @@ public class DataReserva {
  			stmt.setInt(3, r.getPersona().getIdpersona());
  			stmt.setInt(4, r.getElemento().getIdelemento());
  			stmt.setString(5, r.getEstado());
- 			stmt.setString(6, r.getDetalle());
+ 			//stmt.setString(6, r.getDetalle());
   			stmt.executeUpdate();
  			keyResultSet=stmt.getGeneratedKeys();
  			if(keyResultSet!=null && keyResultSet.next()){
  				r.setId_reserva(keyResultSet.getInt(1));
  			}
+ 			
  		} catch (SQLException | AppDataException e) {
  			throw e;
+ 		
  		}
  		try {
  			if(keyResultSet!=null)keyResultSet.close();
@@ -88,6 +98,7 @@ public class DataReserva {
  		} catch (SQLException e) {
  			e.printStackTrace();
  		}
+ 		
  	}
 	
 	
@@ -187,6 +198,7 @@ public class DataReserva {
 	}
 	public boolean validar(Reserva r) {
 		// TODO Auto-generated method stub
+
 		Tipo_Elemento te =r.getElemento().getTipo_Elem();
 		
 		int d= te.getDias_anticip();
@@ -194,15 +206,21 @@ public class DataReserva {
 		//Fechas f = new Fechas(); 
 		//int D=f.diferenciaEnDias2(hoy, r.getFecha());
 	
-		java.util.Date hoy=new Date();
+	java.util.Date hoy=new Date();
+		Fechas f = new Fechas(); 
+		int D=f.diferenciaEnDias2(hoy, r.getFecha());
+		
 		Calendar cal=Calendar.getInstance();
 		cal.setTime(hoy);
+
 		cal.add(Calendar.DAY_OF_YEAR, d);
+
 		if (r.getFecha().after(cal.getTime()))
 			return true;
 		else
 		
 		return false;
+
 		
 		
 		/*if (D >= dias){
@@ -211,7 +229,8 @@ public class DataReserva {
 		else {
 			return false;
 			 }*/
-	}
+}
+	
 	
 	
 	
