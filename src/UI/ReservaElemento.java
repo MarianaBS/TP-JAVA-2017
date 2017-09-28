@@ -9,7 +9,6 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
@@ -24,8 +23,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-
-//import com.toedter.calendar.JDateChooser;
 
 import controlers.CtrlABMPersona;
 import controlers.CtrlReserva;
@@ -249,12 +246,8 @@ public class ReservaElemento extends JInternalFrame {
  						 
 					 this.cboElementos.setModel(new DefaultComboBoxModel<Object>(this.ctrl.getElemDisponibles(fecha, hora, ctrl.getElementos(te)).toArray()));
 					 this.cboElementos.setSelectedIndex(-1);
-
-			    //ArrayList<Elemento> c=this.ctrl.getElementos(te);
-			 			 
-			  this.cboElementos.setModel(new DefaultComboBoxModel<Object>(this.ctrl.getElemDisponibles(fecha, hora, ctrl.getElementos(te)).toArray()));
-			  this.cboElementos.setSelectedIndex(-1);
-			  this.cboElementos.setEnabled(true);
+					 this.cboElementos.setEnabled(true);
+	
 		 }}}
 
 		 catch (Exception e) {
@@ -269,15 +262,16 @@ public class ReservaElemento extends JInternalFrame {
 			Reserva r=this.mapearDeForm();
 			try{
 	 			if(ctrl.validar(r)){
-	 				
-	 			r.setEstado("pendiente");
-	 			ctrl.add(r);
-	 			JOptionPane.showMessageDialog(this, "Su reserva fue registrada");}
+	 	 			r.setEstado("pendiente");
+	 	 			ctrl.add(r);
+	 	 			JOptionPane.showMessageDialog(this, "Su reserva fue registrada");}
 
 	 			else JOptionPane.showMessageDialog(this, "No cumple con la cantidad de días de anticipación");
-	 			} catch (Exception e) { JOptionPane.showMessageDialog(this, "No se pudo guardar");
+	 			} 
+			catch (Exception e) { JOptionPane.showMessageDialog(this, "No se pudo guardar");
 	 			}
-	 			this.txtId.setText(String.valueOf(r.getId_reserva()));
+	 			
+			this.txtId.setText(String.valueOf(r.getId_reserva()));
 	 			 		
 	 			 	}
 		
@@ -297,7 +291,7 @@ public class ReservaElemento extends JInternalFrame {
 	 		
 	 				
 	 		 CtrlABMPersona cper=new CtrlABMPersona(); 		
-	 		 r.setPersona(cper.getByDni("121212"));
+	 		 r.setPersona(cper.getByDni("987654"));
 	 		
 	 		 	if (cboElementos.getSelectedIndex() != -1)
 	 		 {
