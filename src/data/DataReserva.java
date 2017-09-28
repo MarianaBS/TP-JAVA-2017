@@ -203,12 +203,9 @@ public class DataReserva {
 		
 		int d= te.getDias_anticip();
 		
+		java.util.Date hoy=new Date();
 		//Fechas f = new Fechas(); 
 		//int D=f.diferenciaEnDias2(hoy, r.getFecha());
-	
-	java.util.Date hoy=new Date();
-		Fechas f = new Fechas(); 
-		int D=f.diferenciaEnDias2(hoy, r.getFecha());
 		
 		Calendar cal=Calendar.getInstance();
 		cal.setTime(hoy);

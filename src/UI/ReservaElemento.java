@@ -1,8 +1,6 @@
 package UI;
 
-import entity.Categoria;
 import entity.Elemento;
-import entity.Persona;
 import entity.Tipo_Elemento;
 import entity.Reserva;
 
@@ -14,45 +12,27 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextPane;
 
 import java.awt.EventQueue;
-import java.awt.TextArea;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JScrollBar;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
 //import com.toedter.calendar.JDateChooser;
 
-
-
-
-
-import controlers.CtrlABMElemento;
 import controlers.CtrlABMPersona;
 import controlers.CtrlReserva;
 
-import javax.swing.JEditorPane;
-import javax.swing.JLayeredPane;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.sql.Date;
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.TimeZone;
+
 
 public class ReservaElemento extends JInternalFrame {
 	
@@ -68,7 +48,6 @@ public class ReservaElemento extends JInternalFrame {
 	private JComboBox cboTipos;
 	private JComboBox cboElementos;
 
-	private JComponent btnAceptar;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -324,9 +303,7 @@ public class ReservaElemento extends JInternalFrame {
 	 		 {
 	 		 		
 	 			 r.setElemento((Elemento)cboElementos.getSelectedItem());
-	 		 	//r.setElemento((Elemento)cboElementos.getSelectedIndex());	
-	 		 	
-	 		}
+	 		 }
 	 		 else
 	 		{
 	 			 JOptionPane.showMessageDialog(this, "Seleccione un elemento");	 

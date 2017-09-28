@@ -21,7 +21,7 @@ import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
 import controlers.CtrlReserva;
 import entity.Reserva;
-import entity.Elemento;
+
 import java.sql.*;
 
 
@@ -88,6 +88,7 @@ public class ReservasPendientes extends JInternalFrame {
 			 JOptionPane.showMessageDialog(this, "Selecione una Reserva"); 
 			 }
 		}
+	 
 	protected void initDataBindings() {
 		JTableBinding<Reserva, List<Reserva>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, res, table);
 		//

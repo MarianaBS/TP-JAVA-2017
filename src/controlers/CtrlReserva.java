@@ -4,9 +4,6 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-
 import data.DataElemento;
 import data.DataPersona;
 import data.DataReserva;
