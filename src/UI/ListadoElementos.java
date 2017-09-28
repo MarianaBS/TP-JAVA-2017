@@ -40,7 +40,7 @@ public class ListadoElementos extends JInternalFrame {
 		setClosable(true);
 		setBounds(100, 100, 507, 300);
 		JScrollPane scrollPane = new JScrollPane();
-	 	btnEditar = new JButton("Editar");
+	 	btnEditar = new JButton("Editar");   //crea la funcionalidad del click
 	 	btnEditar.addMouseListener(new MouseAdapter() {
 	 	@Override
 	 	public void mouseClicked(MouseEvent arg0) {
@@ -76,14 +76,15 @@ public class ListadoElementos extends JInternalFrame {
 	 protected void btnEditarClick() {
 	 int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
 	 if (indexElemento != -1) {
-	 
+
 	 ABMCElementos le= new ABMCElementos();
 	 le.showElemento(this.elem.get(indexElemento));
 	 
 	 this.getDesktopPane().add(le);
 	 le.setVisible(true);}
 	 else {
-		 JOptionPane.showMessageDialog(this, "Selecione un Elemento"); }
+		 JOptionPane.showMessageDialog(this, "Selecione un Elemento");
+		 }
 
 	 }
 	 		

@@ -3,7 +3,7 @@ package entity;
 public class Persona {
 	private int idpersona;
 	private String dni;
-	private String nombre;
+	private String nombre_per;
 	private String apellido;
 	private String usuario;
 	private String contrasenia;
@@ -31,10 +31,10 @@ public class Persona {
 		this.dni = dni;
 	}
 	public String getNombre() {
-		return nombre;
+		return nombre_per;
 	}
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre_per = nombre;
 	}
 	public String getApellido() {
 		return apellido;

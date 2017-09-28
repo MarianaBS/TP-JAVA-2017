@@ -143,7 +143,8 @@ public class DataPersona {
 	 		
 	 		try {
 	 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-	 					"update personas set dni=?, nombre=?, apellido=?, habilitado=?, id_categoria=? where idpersona=?"
+	 					"update personas set dni=?, nombre=?, apellido=?, habilitado=?, "
+	 					+ "id_categoria=? where idpersona=?"
 	 					);
 	 			stmt.setString(1, p.getDni());
 	 			stmt.setString(2, p.getNombre());

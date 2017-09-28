@@ -36,14 +36,18 @@ public class CtrlReserva {
    public void delete(Reserva r) throws Exception{
 	   dataRes.remove(r);}
    
+   public void update(Reserva r) throws Exception{
+	   dataRes.update(r);
+   }
+   
    public ArrayList<Persona>getAll() throws Exception{
 		return dataPer.getAll();}
 	
 	public ArrayList<Elemento> getElementos() throws Exception{
 		return dataEle.getAll();
 			}
-	public ArrayList<Reserva> getReservas() throws Exception{
-		return dataRes.getAll();
+	public ArrayList<Reserva> getReservasPendientes() throws Exception{
+		return dataRes.getReservasPendientes();
 			}
 
 	public ArrayList<Tipo_Elemento>getTipos() throws Exception{ 
@@ -62,9 +66,22 @@ public class CtrlReserva {
 		return dataEle.getByTipo(t);
 	}	
 	
+	
 	public ArrayList<Elemento> getElemDisponibles(Date f, Time h,ArrayList<Elemento>el) throws Exception
 		{ return dataRes.getElemDisponibles(f, h, el);
 		}
+	
+	
+	public int validarBotonBuscar(int cboTipos , String fecha,String hora) {
+		int ok;
+		if (cboTipos == -1)
+		 	{ok= 1;}
+		else if ((fecha.isEmpty()) || (hora.isEmpty()))
+		 	{ok=2;} 
+		else {ok=3;}
+		 	return ok;
+		}
+		
 	
 	}
 	

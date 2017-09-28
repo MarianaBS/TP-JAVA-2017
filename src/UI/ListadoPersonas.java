@@ -76,13 +76,11 @@ public ListadoPersonas() {
  protected void btnEditarClick() {
  int indexPersona=table.convertRowIndexToModel(table.getSelectedRow());
  if (indexPersona != -1){
- 
  ABMCPersonaDesktop pd= new ABMCPersonaDesktop();
  pd.showPersona(this.pers.get(indexPersona));
  
  this.getDesktopPane().add(pd);
  pd.setVisible(true);}
- 
  else { 
 	 JOptionPane.showMessageDialog(this, "Selecione una Persona"); 
 	 }

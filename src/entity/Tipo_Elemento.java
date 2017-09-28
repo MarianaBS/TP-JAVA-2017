@@ -7,7 +7,7 @@ private int idtipo_elemento;
 private String nombre_tipo;
 private int cant_max;
 private int lim_tiempo;
-private int dias_anticip;
+private int dias;
 private boolean encargado;
 
 
@@ -30,16 +30,16 @@ public void setCant_max(int cant_max) {
 	this.cant_max = cant_max;
 }
 public int getLim_tiempo() {
-	return lim_tiempo;
+	return (int)lim_tiempo;
 }
 public void setLim_tiempo(int lim_tiempo) {
 	this.lim_tiempo = lim_tiempo;
 }
 public int getDias_anticip() {
-	return dias_anticip;
+	return (int)dias;
 }
 public void setDias_anticip(int dias_anticip) {
-	this.dias_anticip = dias_anticip;
+	this.dias = dias_anticip;
 }
 public boolean getEncargado() {
 	return encargado;

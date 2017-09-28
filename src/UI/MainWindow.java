@@ -134,13 +134,24 @@ mnuReservaElementoClick();
 
 JMenuItem mnuReservasPendientes = new JMenuItem("Reservas pendientes");
 mnuReservas.add(mnuReservasPendientes);
+mnuReservasPendientes.addActionListener(new ActionListener() {
+public void actionPerformed(ActionEvent arg0) {
+mnuReservasPendientesClick();
+}});
+}
+
+protected void mnuReservasPendientesClick() {
+	// TODO Auto-generated method stub
+	ReservasPendientes rp=new ReservasPendientes();
+	desktopPane.add(rp);
+	rp.setVisible(true);
 }
 
 protected void mnuCerrarSesionClick() {
 	// TODO Auto-generated method stub
-	Login l=new Login();
-	desktopPane.add(l);
-	l.setVisible(true);
+	Login lo=new Login();
+	desktopPane.add(lo);
+	lo.setVisible(true);
 }
 
 protected void mnuABMCPersonaClick() {
@@ -186,7 +197,7 @@ protected void mnuReservaElementoClick() {
 
 private void mnuSalirClick() {
 	// TODO Auto-generated method stub
-	//this.close();
+	frmSistemaDeReservas.dispose();
 }
 }
 

@@ -75,19 +75,7 @@ public class ABMCElementos extends JInternalFrame {
 		JLabel lblNombre = new JLabel("Nombre");
 		
 		txtNombre = new JTextField();
-		txtNombre.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent ke) {
-				char c=ke.getKeyChar(); 
-	             
-		          if(Character.isDigit(c)) { 
-		              getToolkit().beep(); 
-		               ke.consume(); 
-		              }
 		
-			}
-			}
-		);
 		txtNombre.setColumns(10);
 		
 		JLabel lblTipo = new JLabel("Tipo Elemento");

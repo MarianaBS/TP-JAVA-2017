@@ -35,6 +35,7 @@ public class Reserva {
 	public String getEstado() {
 		return estado;
 	}
+	
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
@@ -61,5 +62,17 @@ public class Reserva {
 		this.persona = persona;
 	}
 	
+	
+
+	@Override
+	public boolean equals(Object o){
+	return (o instanceof Reserva && ((Reserva)o).getId_reserva()==this.getId_reserva());
+	}
+
+	@Override
+	public int hashCode(){
+	return ((Integer)this.getId_reserva()).hashCode();
+	}
+		
 
 }

@@ -84,7 +84,8 @@ throw e;
  		ResultSet keyResultSet=null;
  		try {
  			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
- 					"insert into tipo_elemento(nombre_tipo, cant_max, lim_tiempo, dias_anticip, encargado) values (?,?,?,?,?)",
+ 					"insert into tipo_elemento(nombre_tipo, cant_max, lim_tiempo, dias_anticip, encargado) "
+ 					+ "values (?,?,?,?,?)",
  					PreparedStatement.RETURN_GENERATED_KEYS
  					);
  			stmt.setString(1, t.getNombre_tipo());
@@ -114,8 +115,8 @@ throw e;
  		PreparedStatement stmt=null;
  			try {
  			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
- 					"delete from tipo_elemento where nombre_tipo=?",
- 					PreparedStatement.RETURN_GENERATED_KEYS
+ 					"delete from tipo_elemento where nombre_tipo=?"
+ 					
  					);
  			stmt.setString(1, t.getNombre_tipo());
  			stmt.executeUpdate();
@@ -138,8 +139,8 @@ throw e;
  			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
  					"update tipo_elemento "
  					+ "set nombre_tipo=?, cant_max=?, lim_tiempo=?, dias_anticip=?, encargado=? "
- 					+ "where idtipo_elemento=?",
- 					PreparedStatement.RETURN_GENERATED_KEYS
+ 					+ "where idtipo_elemento=?"
+ 					
  					);
  			stmt.setString(1, t.getNombre_tipo());
  			stmt.setInt(2, t.getCant_max());

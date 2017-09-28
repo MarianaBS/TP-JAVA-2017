@@ -35,6 +35,7 @@ import javax.swing.JTextField;
 
 
 
+
 import controlers.CtrlABMElemento;
 import controlers.CtrlABMPersona;
 import controlers.CtrlReserva;
@@ -235,24 +236,36 @@ public class ReservaElemento extends JInternalFrame {
 		 		this.cboTipos.setModel(new DefaultComboBoxModel<Object>(this.ctrl.getTipos().toArray()));
 		 		this.cboTipos.setSelectedIndex(-1);
 		 	} catch (Exception e) {
-		 JOptionPane.showMessageDialog(this, "Error recuperando Tipos de Elementos");
-		 }
-	 }
+		 		JOptionPane.showMessageDialog(this, "Error recuperando Tipos de Elementos");
+		 		}
+	 	}
 	
 	 private void buscarClick() {
 		 try {
-		 Tipo_Elemento te=new Tipo_Elemento();
-		 if (cboTipos.getSelectedIndex() != -1){
- 			 te=(Tipo_Elemento)cboTipos.getSelectedItem();
- 			 java.sql.Date fecha = convertirFecha(this.txtFecha.getText());
- 			 java.sql.Time hora = convertirHora(this.txtHora.getText());
- 			
- 			 //ArrayList<Elemento> c=this.ctrl.getElementos(te);
- 			 			 
-			this.cboElementos.setModel(new DefaultComboBoxModel<Object>(this.ctrl.getElemDisponibles(fecha, hora, ctrl.getElementos(te)).toArray()));
-			this.cboElementos.setSelectedIndex(-1);
+			 
+			 int validar=this.ctrl.validarBotonBuscar(cboTipos.getSelectedIndex(), txtFecha.getText(), txtHora.getText());
+			 if (validar==1)
+			 	{
+			 		JOptionPane.showMessageDialog(this, "Seleccione un Tipo de Elemento");  
+			 		this.cboElementos.setEnabled(true);
+			 		 }
+			 else if(validar==2)
+			 	 {
+			 		JOptionPane.showMessageDialog(this, "Verifique hora y fecha");  
+			 		this.cboElementos.setEnabled(true);
+			 	 }
+			 else if(validar==3)
+			 {
+				 Tipo_Elemento te=new Tipo_Elemento();
+				 if (cboTipos.getSelectedIndex() != -1){
+					 te=(Tipo_Elemento)cboTipos.getSelectedItem();
+					 java.sql.Date fecha = convertirFecha(this.txtFecha.getText());
+					 java.sql.Time hora = convertirHora(this.txtHora.getText());
+ 						 
+					 this.cboElementos.setModel(new DefaultComboBoxModel<Object>(this.ctrl.getElemDisponibles(fecha, hora, ctrl.getElementos(te)).toArray()));
+					 this.cboElementos.setSelectedIndex(-1);
 			
-		} } 
+		} }} 
 		 catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Error recuperando Elementos");
 	 		
@@ -267,8 +280,9 @@ public class ReservaElemento extends JInternalFrame {
 	 			if(ctrl.validar(r)){
 	 			r.setEstado("pendiente");
 	 			ctrl.add(r);
+	 			JOptionPane.showMessageDialog(this, "Su reserva fue registrada");
 	 			}
-	 			else JOptionPane.showMessageDialog(this, "No cumple con las cantidad de días de anticipación");
+	 			else JOptionPane.showMessageDialog(this, "No cumple con la cantidad de días de anticipación");
 	 			} catch (Exception e) {
 	 			JOptionPane.showMessageDialog(this, "No se pudo guardar");
 	 			}
@@ -290,22 +304,33 @@ public class ReservaElemento extends JInternalFrame {
 	         java.sql.Time hora = convertirHora(this.txtHora.getText());
    	 		 r.setHora(hora);
 	 		
-	 		//java.sql.Date fecha = Date.valueOf(this.txtFecha.getText());
-	 		//java.sql.Time hora = Time.valueOf(this.txtHora.getText());
-	 		
-	 		//r.setFecha(fecha);
-	 		//r.setHora(hora);
-	 		
+	 				
 	 		 CtrlABMPersona cper=new CtrlABMPersona(); 		
 	 		 r.setPersona(cper.getByDni("987654"));
 	 		
-	 		 if (cboElementos.getSelectedIndex() != -1){
+	 		 if (cboElementos.getSelectedIndex() != -1)
+	 		 {
 	 			 r.setElemento((Elemento)cboElementos.getSelectedItem());
-	 			 }
+	 		}
+	 		 else
+	 		{
+	 			 JOptionPane.showMessageDialog(this, "Seleccione un elemento");	 
+	 		}
 	 		 return r;
 			
 			
 	 		}
+		
+		private void mapearAForm(Reserva r){
+			if (r.getElemento() !=null){
+		 		this.cboElementos.setSelectedItem(r.getElemento());
+		 		};
+	 		this.txtFecha.setText(r.getFecha().toString());
+	 		this.txtHora.setText(r.getHora().toString());
+	 		this.txtDetalle.setText(r.getDetalle());
+	 		this.txtId.setText(String.valueOf(r.getId_reserva()));
+	 
+	 	}
 		
 		
 		private java.sql.Date convertirFecha(String f) throws ParseException {
@@ -322,5 +347,10 @@ public class ReservaElemento extends JInternalFrame {
 	        java.sql.Time hora = new java.sql.Time(pars.getTime());
 			return hora;
 		}
+		
+		public void showReserva(Reserva r){
+	 		 this.mapearAForm(r);
+	 		 	
+	 		 }
 }
 

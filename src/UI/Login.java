@@ -5,9 +5,14 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
+
+import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -16,13 +21,37 @@ public class Login extends JInternalFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JPasswordField password;
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Login frame = new Login();
+					frame.setVisible(true);
+			
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	
 	public Login() {
 		setClosable(true);
 		setTitle("Login");
 		
-		JLabel lblBienvenidosAlSistema = new JLabel("Bienvenidos al Sistema de Reservas ");
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setBounds(100, 100, 376, 273);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+
+		
+		JLabel lblBienvenidosAlSistema = new JLabel("\u00A1Bienvenido al Sistema de Reservas! ");
 		
 		JLabel lblIngreseSusDatos = new JLabel("Ingrese sus datos");
 		
@@ -43,50 +72,46 @@ public class Login extends JInternalFrame{
 		password = new JPasswordField();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(82)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(160)
+							.addGap(44)
 							.addComponent(lblIngreseSusDatos))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(116)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(lblContrasea))
-										.addComponent(lblUsuario))
-									.addGap(10)
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(password)
-										.addComponent(txtUsuario, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-										.addComponent(btnAceptar)))
-								.addComponent(lblBienvenidosAlSistema))))
-					.addContainerGap(137, Short.MAX_VALUE))
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addComponent(lblContrasea)
+									.addComponent(lblUsuario))
+								.addGap(10)
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+									.addComponent(password)
+									.addComponent(txtUsuario, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+									.addComponent(btnAceptar)))
+							.addComponent(lblBienvenidosAlSistema)))
+					.addContainerGap(87, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(33)
+					.addGap(32)
 					.addComponent(lblBienvenidosAlSistema)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblIngreseSusDatos)
+					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblUsuario)
+							.addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(39)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblUsuario)
-								.addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(86)
+							.addGap(47)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblContrasea)
 								.addComponent(password, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+					.addGap(18)
 					.addComponent(btnAceptar)
-					.addGap(49))
+					.addContainerGap(42, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);
 	}

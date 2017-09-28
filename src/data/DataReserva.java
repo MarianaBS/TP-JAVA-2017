@@ -10,15 +10,18 @@ import entity.*;
 
 
 public class DataReserva {
-	public ArrayList<Reserva> getAll() throws Exception{
+	public ArrayList<Reserva> getReservasPendientes() throws Exception{
 		Statement stmt=null;
 		ResultSet rs=null;
 		ArrayList<Reserva> res= new ArrayList<Reserva>();
 		try {
 		 	stmt = FactoryConexion.getInstancia().getConn().createStatement();
 		 	rs = stmt.executeQuery("select * from reservas r "
-		 			+ "inner join  personas p on p.idpersona=r.id_persona"
-		 			+ "inner join elementos e on e.idelemento=r.id_elemento");
+		 			+ "inner join  personas p on p.idpersona=r.id_persona "
+		 			+ "inner join elementos e on e.idelemento=r.id_elemento "
+		 			+ "inner join tipo_elemento te on te.idtipo_elemento=e.idtipo_elemento "
+		 			+ "where estado='pendiente' and (fecha>current_timestamp or "
+		 			+ "(fecha=current_timestamp and hora>current_timestamp))");
 		 	if(rs!=null){
 		 		while(rs.next()){
 		 			Reserva r=new Reserva();
@@ -30,10 +33,13 @@ public class DataReserva {
 		 			r.setFecha(rs.getDate("fecha"));
 		 			r.setHora(rs.getTime("hora"));
 		 			r.getElemento().setIdelemento(rs.getInt("id_elemento"));
-		 			r.getElemento().setNombre(rs.getString("nombre"));
+		 			r.getElemento().setNombre(rs.getString("e.nombre"));
+		 			r.getElemento().setTipo_Elem(new Tipo_Elemento());
+		 			r.getElemento().getTipo_Elem().setIdtipo_elemento(rs.getInt("idtipo_elemento"));
+		 			r.getElemento().getTipo_Elem().setNombre_tipo(rs.getString("nombre_tipo"));
 		 			r.getPersona().setIdpersona(rs.getInt("idpersona"));
 		 			r.getPersona().setApellido(rs.getString("apellido"));
-		 			r.getPersona().setNombre(rs.getString("nombre"));
+		 			r.getPersona().setNombre(rs.getString("p.nombre"));
 		 			res.add(r);
 		 						}
 		 				}		
@@ -83,6 +89,36 @@ public class DataReserva {
  			e.printStackTrace();
  		}
  	}
+	
+	
+	public void update(Reserva r) throws Exception{
+ 		PreparedStatement stmt=null;
+ 		
+ 		try {
+ 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
+ 					"update reservas "
+ 					+ "set fecha=?, hora=?, id_persona=?, id_elemento=?, estado='cancelada', detalle=?"
+ 					+ " where id_reserva=?"
+ 					
+ 					);
+  			stmt.setDate(1, r.getFecha());
+ 			stmt.setTime(2, r.getHora());
+ 			stmt.setInt(3, r.getPersona().getIdpersona());
+ 			stmt.setInt(4, r.getElemento().getIdelemento());
+ 			stmt.setString(5, r.getDetalle());
+ 			stmt.setInt(6, r.getId_reserva());
+ 			stmt.executeUpdate();
+ 			
+ 		} catch (SQLException | AppDataException e) {
+ 			throw e;
+ 		}
+ 		try {
+ 			if(stmt!=null)stmt.close();
+ 			FactoryConexion.getInstancia().releaseConn();
+ 		} catch (SQLException e) {
+ 			e.printStackTrace();
+ 		}}
+	
 	public void remove(Reserva r) throws Exception{
  		PreparedStatement stmt=null;
  		
@@ -151,16 +187,29 @@ public class DataReserva {
 	}
 	public boolean validar(Reserva r) {
 		// TODO Auto-generated method stub
-		int dias=r.getElemento().getTipo_Elem().getDias_anticip();
+		Tipo_Elemento te =r.getElemento().getTipo_Elem();
+		
+		int d= te.getDias_anticip();
+		
+		//Fechas f = new Fechas(); 
+		//int D=f.diferenciaEnDias2(hoy, r.getFecha());
+	
 		java.util.Date hoy=new Date();
 		Calendar cal=Calendar.getInstance();
 		cal.setTime(hoy);
-		cal.add(Calendar.DAY_OF_YEAR, dias);
+		cal.add(Calendar.DAY_OF_YEAR, d);
 		if (r.getFecha().after(cal.getTime()))
 			return true;
 		else
 		
 		return false;
+		
+		/*if (D >= dias){
+			 return true;
+			 }
+		else {
+			return false;
+			 }*/
 	}
 	
 	
