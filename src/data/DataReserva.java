@@ -33,10 +33,10 @@ public class DataReserva {
 		 			r.setEstado(rs.getString("estado"));
 		 			r.setFecha(rs.getDate("fecha"));
 		 			r.setHora(rs.getTime("hora"));
-		 			r.getElemento().setIdelemento(rs.getInt("id_elemento"));
+		 			r.getElemento().setIdelemento(rs.getInt("r.id_elemento"));
 		 			r.getElemento().setNombre(rs.getString("e.nombre"));
 		 			r.getElemento().setTipo_Elem(new Tipo_Elemento());
-		 			r.getElemento().getTipo_Elem().setIdtipo_elemento(rs.getInt("idtipo_elemento"));
+		 			r.getElemento().getTipo_Elem().setIdtipo_elemento(rs.getInt("r.idtipo_elemento"));
 		 			r.getElemento().getTipo_Elem().setNombre_tipo(rs.getString("nombre_tipo"));
 		 			r.getPersona().setIdpersona(rs.getInt("idpersona"));
 		 			r.getPersona().setApellido(rs.getString("apellido"));
@@ -194,6 +194,7 @@ public class DataReserva {
 				Tipo_Elemento te =r.getElemento().getTipo_Elem();
 				
 				int d= te.getDias_anticip();
+				
 				
 				//Fechas f = new Fechas(); 
 				//int D=f.diferenciaEnDias2(hoy, r.getFecha());

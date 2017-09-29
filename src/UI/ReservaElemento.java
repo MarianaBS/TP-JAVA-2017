@@ -294,14 +294,15 @@ public class ReservaElemento extends JInternalFrame {
 	 		 r.setPersona(cper.getByDni("987654"));
 	 		
 	 		 	if (cboElementos.getSelectedIndex() != -1)
-	 		 {
-	 		 		
-	 			 r.setElemento((Elemento)cboElementos.getSelectedItem());
-	 		 }
-	 		 else
-	 		{
+	 		 	{
+	 		 	 Elemento ele=(Elemento)cboElementos.getSelectedItem();
+	 			 ele.setTipo_Elem((Tipo_Elemento)cboTipos.getSelectedItem());
+	 			 r.setElemento(ele);
+	 		 	}
+	 		 	else
+	 		 	{
 	 			 JOptionPane.showMessageDialog(this, "Seleccione un elemento");	 
-	 		}
+	 		 	}
 	 		 return r;
 			
 			
