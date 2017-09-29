@@ -33,6 +33,7 @@ public void run() {
 			window.frmSistemaDeReservas.setLocation(Integer.valueOf((pantalla.width-ventana.width)/2), 
 					Integer.valueOf(pantalla.height-ventana.height)/2);
 			window.frmSistemaDeReservas.setVisible(true);
+			
 	} catch (Exception e) {
 	e.printStackTrace();
 	}
@@ -53,8 +54,11 @@ frmSistemaDeReservas.getContentPane().setLayout(new BorderLayout(0, 0));
 desktopPane = new JDesktopPane();
 frmSistemaDeReservas.getContentPane().add(desktopPane, BorderLayout.CENTER);
 
+
 JMenuBar menuBar = new JMenuBar();
 frmSistemaDeReservas.setJMenuBar(menuBar);
+//menuBar.setVisible(true);
+//mnuCerrarSesionClick();
 JMenu mnuInicio = new JMenu("Inicio");
 menuBar.add(mnuInicio);
 JMenuItem mnuCerrarSesion = new JMenuItem("Cerrar Sesi\u00F3n");

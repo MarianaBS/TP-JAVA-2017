@@ -267,6 +267,7 @@ public class ABMCTipoElemento extends JInternalFrame {
  			 	}
  	protected void agregarClick() {
  		Tipo_Elemento t = this.mapearDeForm();
+ 		JOptionPane.showMessageDialog(this, "El tipo de elemento fue registrado");
  		try{
  			ctrl.add(t);
  			} catch (Exception e) {
@@ -278,6 +279,7 @@ public class ABMCTipoElemento extends JInternalFrame {
  	protected void borrarClick(){
  		try{
  			ctrl.delete(this.mapearDeForm());
+ 			JOptionPane.showMessageDialog(this, "El tipo de elemento fue elimninado");
  			} catch (Exception e) {
  			JOptionPane.showMessageDialog(this, e.getMessage());
  			}
@@ -285,6 +287,7 @@ public class ABMCTipoElemento extends JInternalFrame {
  	protected void modificarClick(){
  		try{
  			ctrl.update(this.mapearDeForm());
+ 			JOptionPane.showMessageDialog(this, "Los datos del tipo de elemento fueron modificados");
  			} catch (Exception e) {
  			JOptionPane.showMessageDialog(this, e.getMessage());
  			}

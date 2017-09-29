@@ -193,6 +193,7 @@ public class ABMCElementos extends JInternalFrame {
 	 		Elemento el = this.mapearDeForm();
 	 		try{
 	 			ctrl.add(el);
+	 			JOptionPane.showMessageDialog(this, "El elemento fue registrado");
 	 			} catch (Exception e) {
 	 			JOptionPane.showMessageDialog(this, "No se pudo guardar");
 	 			}
@@ -202,6 +203,7 @@ public class ABMCElementos extends JInternalFrame {
 	 	protected void borrarClick(){
 	 		try{
 	 			ctrl.delete(this.mapearDeForm());
+	 			JOptionPane.showMessageDialog(this, "El elemento fue eliminado");
 	 			} catch (Exception e) {
 	 			JOptionPane.showMessageDialog(this, e.getMessage());
 	 			}
@@ -209,6 +211,7 @@ public class ABMCElementos extends JInternalFrame {
 	 	protected void modificarClick(){
 	 		try{
 	 			ctrl.update(this.mapearDeForm());
+	 			JOptionPane.showMessageDialog(this, "Los datos del elemento fueron modificados");
 	 			} catch (Exception e) {
 	 			JOptionPane.showMessageDialog(this, e.getMessage());
 	 			}

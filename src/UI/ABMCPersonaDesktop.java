@@ -280,11 +280,13 @@ public static void main(String[] args) {
  			JOptionPane.showMessageDialog(this, "No se pudo guardar");
  			}
  			this.txtId.setText(String.valueOf(p.getIdpersona()));
+ 			JOptionPane.showMessageDialog(this, "La persona fue registrada");}
  			 		
- 			 	}
+ 			 	
  	protected void borrarClick(){
  		try{
  			ctrl.delete(this.mapearDeForm());
+ 			JOptionPane.showMessageDialog(this, "La persona fue eliminada");
  			} catch (Exception e) {
  			JOptionPane.showMessageDialog(this, e.getMessage());
  			}
@@ -292,6 +294,7 @@ public static void main(String[] args) {
  	protected void modificarClick(){
  		try{
  			ctrl.update(this.mapearDeForm());
+ 			JOptionPane.showMessageDialog(this, "Los datos de la persona fueron modificados");
  		} catch (Exception e) {
  			JOptionPane.showMessageDialog(this, e.getMessage());
  		}

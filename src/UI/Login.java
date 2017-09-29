@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -15,6 +16,9 @@ import javax.swing.JPasswordField;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Login extends JInternalFrame{
 	/**
@@ -47,6 +51,7 @@ public class Login extends JInternalFrame{
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 376, 273);
 		contentPane = new JPanel();
+		contentPane.setForeground(Color.BLACK);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
@@ -63,6 +68,11 @@ public class Login extends JInternalFrame{
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		btnAceptar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -70,6 +80,15 @@ public class Login extends JInternalFrame{
 		});
 		
 		password = new JPasswordField();
+		
+		JLabel lblOlvidMiClave = new JLabel("Olvidé mi clave");
+		lblOlvidMiClave.setForeground(Color.BLUE);
+		lblOlvidMiClave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				JOptionPane.showMessageDialog(lblOlvidMiClave, "¡Haga memoria!", "Ingreso inválido", EXIT_ON_CLOSE, frameIcon);
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -87,9 +106,12 @@ public class Login extends JInternalFrame{
 								.addGap(10)
 								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 									.addComponent(password)
-									.addComponent(txtUsuario, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-									.addComponent(btnAceptar)))
-							.addComponent(lblBienvenidosAlSistema)))
+									.addComponent(txtUsuario, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)))
+							.addComponent(lblBienvenidosAlSistema)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(lblOlvidMiClave)
+								.addGap(18)
+								.addComponent(btnAceptar))))
 					.addContainerGap(87, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
@@ -110,7 +132,9 @@ public class Login extends JInternalFrame{
 								.addComponent(lblContrasea)
 								.addComponent(password, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
 					.addGap(18)
-					.addComponent(btnAceptar)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnAceptar)
+						.addComponent(lblOlvidMiClave))
 					.addContainerGap(42, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);
