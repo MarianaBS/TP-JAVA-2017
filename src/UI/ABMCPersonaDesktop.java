@@ -50,6 +50,8 @@ private JButton btnBorrar;
 private JTextField txtId;
 public JComboBox cboCategoria;
 private JButton btnModificar;
+private JTextField txtUsuario;
+private JTextField txtContrasenia;
 
 public static void main(String[] args) {
  		EventQueue.invokeLater(new Runnable() {
@@ -71,7 +73,7 @@ public static void main(String[] args) {
  		setTitle("ABMC Persona");
  		setClosable(true);
  		setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
- 		setBounds(100, 100, 328, 297);
+ 		setBounds(100, 100, 328, 367);
  		contentPane = new JPanel();
  		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
  		setContentPane(contentPane);
@@ -171,46 +173,65 @@ public static void main(String[] args) {
  		
  		cboCategoria = new JComboBox();
  		
+ 		JLabel lblUsuario = new JLabel("Usuario");
+ 		
+ 		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
+ 		
+ 		txtUsuario = new JTextField();
+ 		txtUsuario.setColumns(10);
+ 		
+ 		txtContrasenia = new JTextField();
+ 		txtContrasenia.setColumns(10);
+ 		
  		GroupLayout gl_contentPane = new GroupLayout(contentPane);
  		gl_contentPane.setHorizontalGroup(
  			gl_contentPane.createParallelGroup(Alignment.LEADING)
  				.addGroup(gl_contentPane.createSequentialGroup()
  					.addContainerGap()
- 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+ 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+ 						.addGroup(gl_contentPane.createSequentialGroup()
+ 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+ 								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+ 									.addComponent(chkHabilitado)
+ 									.addGroup(gl_contentPane.createSequentialGroup()
+ 										.addComponent(lblCategoria)
+ 										.addGap(50)
+ 										.addGroup(gl_contentPane.createSequentialGroup()
+ 											.addComponent(cboCategoria, 0, 100, Short.MAX_VALUE)
+ 											.addGap(71))))
+ 								.addGroup(gl_contentPane.createSequentialGroup()
+ 									.addComponent(btnAgregar)
+ 									.addGap(18)
+ 									.addComponent(btnBorrar)
+ 									.addGap(18)
+ 									.addComponent(btnModificar)))
+ 							.addGap(24))
  						.addGroup(gl_contentPane.createSequentialGroup()
  							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
- 								.addComponent(chkHabilitado)
- 								.addGroup(gl_contentPane.createSequentialGroup()
- 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
- 										.addComponent(lblCategoria)
- 										.addComponent(lblApellido)
- 										.addComponent(lblId)
- 										.addComponent(lblDni)
- 										.addComponent(lblNombre))
- 									.addGap(50)
- 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
- 										.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
- 											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
- 												.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
- 													.addComponent(txtNombre, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
- 													.addPreferredGap(ComponentPlacement.RELATED))
- 												.addComponent(txtDni, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
- 												.addComponent(txtId, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
- 											.addGap(20)
- 											.addComponent(btnBuscar))
- 										.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
- 											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
- 												.addComponent(cboCategoria, Alignment.LEADING, 0, 100, Short.MAX_VALUE)
- 												.addComponent(txtApellido, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
- 											.addGap(85)))))
- 							.addContainerGap())
- 						.addGroup(gl_contentPane.createSequentialGroup()
- 							.addComponent(btnAgregar)
- 							.addGap(18)
- 							.addComponent(btnBorrar)
- 							.addGap(18)
- 							.addComponent(btnModificar)
- 							.addGap(24))))
+ 								.addComponent(lblApellido)
+ 								.addComponent(lblId)
+ 								.addComponent(lblDni)
+ 								.addComponent(lblNombre)
+ 								.addComponent(lblUsuario)
+ 								.addComponent(lblContrasea))
+ 							.addGap(41)
+ 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+ 								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+ 									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+ 										.addGroup(gl_contentPane.createSequentialGroup()
+ 											.addComponent(txtNombre, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+ 											.addPreferredGap(ComponentPlacement.RELATED))
+ 										.addComponent(txtDni, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+ 										.addComponent(txtId, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+ 									.addGap(20)
+ 									.addComponent(btnBuscar))
+ 								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+ 									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+ 										.addComponent(txtContrasenia, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+ 										.addComponent(txtUsuario, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+ 										.addComponent(txtApellido, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+ 									.addGap(85)))
+ 							.addContainerGap())))
  		);
  		gl_contentPane.setVerticalGroup(
  			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -236,7 +257,16 @@ public static void main(String[] args) {
  								.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
  								.addComponent(lblNombre))
  							.addGap(38)))
- 					.addGap(18)
+ 					.addPreferredGap(ComponentPlacement.UNRELATED)
+ 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+ 						.addGroup(gl_contentPane.createSequentialGroup()
+ 							.addComponent(lblUsuario)
+ 							.addGap(18)
+ 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+ 								.addComponent(lblContrasea)
+ 								.addComponent(txtContrasenia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+ 						.addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+ 					.addGap(21)
  					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
  						.addComponent(lblCategoria)
  						.addComponent(cboCategoria, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
@@ -247,7 +277,7 @@ public static void main(String[] args) {
  						.addComponent(btnAgregar)
  						.addComponent(btnBorrar)
  						.addComponent(btnModificar))
- 					.addContainerGap())
+ 					.addGap(20))
  		);
  		 contentPane.setLayout(gl_contentPane);
  		 loadLists();
@@ -261,7 +291,7 @@ public static void main(String[] args) {
  		 		(this.ctrl.getCategorias().toArray()));
  		 		this.cboCategoria.setSelectedIndex(-1);
  		 	} catch (Exception e) {
- 		 JOptionPane.showMessageDialog(this, "Error recuperando Categorias");
+ 		 JOptionPane.showMessageDialog(this, "Error recuperando Categorias","Error",JOptionPane.ERROR_MESSAGE);
  		 }
  		 }
 
@@ -269,7 +299,7 @@ public static void main(String[] args) {
  		try {
  			this.mapearAForm(ctrl.getByDni(this.txtDni.getText()));
  			} catch (Exception e) {
- 			JOptionPane.showMessageDialog(this, "No se encontró la persona");
+ 			JOptionPane.showMessageDialog(this, "No se encontró la persona","Mensaje",JOptionPane.INFORMATION_MESSAGE);
  			}
  			 	}
  	protected void agregarClick() {
@@ -305,6 +335,8 @@ public static void main(String[] args) {
  		this.txtApellido.setText(p.getApellido());
  		this.chkHabilitado.setSelected(p.getHabilitado());
  		this.txtId.setText(String.valueOf(p.getIdpersona()));
+ 		this.txtUsuario.setText(p.getUsuario());
+ 		this.txtContrasenia.setText(p.getContrasenia());
  		if (p.getCategoria() !=null){
  			this.cboCategoria.setSelectedItem(p.getCategoria());
  			};
@@ -319,6 +351,8 @@ public static void main(String[] args) {
  		p.setNombre(this.txtNombre.getText());
  		p.setApellido(this.txtApellido.getText());
  		p.setHabilitado(this.chkHabilitado.isSelected());
+ 		p.setUsuario(this.txtUsuario.getText());
+ 		p.setContrasenia(this.txtContrasenia.getText());
  		if (cboCategoria.getSelectedIndex() != -1){
  			 p.setCategoria((Categoria)cboCategoria.getSelectedItem());
  			 }

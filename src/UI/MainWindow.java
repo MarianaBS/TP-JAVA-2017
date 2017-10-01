@@ -57,8 +57,8 @@ frmSistemaDeReservas.getContentPane().add(desktopPane, BorderLayout.CENTER);
 
 JMenuBar menuBar = new JMenuBar();
 frmSistemaDeReservas.setJMenuBar(menuBar);
-//menuBar.setVisible(true);
-//mnuCerrarSesionClick();
+//menuBar.setVisible(false);
+mnuCerrarSesionClick();
 JMenu mnuInicio = new JMenu("Inicio");
 menuBar.add(mnuInicio);
 JMenuItem mnuCerrarSesion = new JMenuItem("Cerrar Sesi\u00F3n");

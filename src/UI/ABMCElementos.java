@@ -177,7 +177,7 @@ public class ABMCElementos extends JInternalFrame {
 		 		this.cboTipos.setModel(new DefaultComboBoxModel(this.ctrl.getTipos().toArray()));
 		 		this.cboTipos.setSelectedIndex(-1);
 		 	} catch (Exception e) {
-		 JOptionPane.showMessageDialog(this, "Error recuperando Tipos de Elementos");
+		 JOptionPane.showMessageDialog(this, "Error recuperando Tipos de Elementos", "Error",JOptionPane.ERROR_MESSAGE);
 		 }
 		 }
 	 

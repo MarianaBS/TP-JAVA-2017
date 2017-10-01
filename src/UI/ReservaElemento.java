@@ -104,6 +104,7 @@ public class ReservaElemento extends JInternalFrame {
  			public void mouseClicked(MouseEvent e) {
  				try {
 					aceptarClick();
+					
 				
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -217,7 +218,7 @@ public class ReservaElemento extends JInternalFrame {
 		 		this.cboTipos.setModel(new DefaultComboBoxModel<Object>(this.ctrl.getTipos().toArray()));
 		 		this.cboTipos.setSelectedIndex(-1);
 		 	} catch (Exception e) {
-		 		JOptionPane.showMessageDialog(this, "Error recuperando Tipos de Elementos");
+		 		JOptionPane.showMessageDialog(this, "Error recuperando Tipos de Elementos","Error",JOptionPane.ERROR_MESSAGE);
 		 		}
 	 	}
 	
@@ -251,7 +252,7 @@ public class ReservaElemento extends JInternalFrame {
 		 }}}
 
 		 catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Error recuperando Elementos");
+			JOptionPane.showMessageDialog(this, "Error recuperando Elementos","Error",JOptionPane.ERROR_MESSAGE);
 	 		
 		}
 		 }
@@ -272,6 +273,7 @@ public class ReservaElemento extends JInternalFrame {
 	 			}
 	 			
 			this.txtId.setText(String.valueOf(r.getId_reserva()));
+			
 	 			 		
 	 			 	}
 		
@@ -281,7 +283,7 @@ public class ReservaElemento extends JInternalFrame {
 			Reserva r=new Reserva();
 	 		if(!this.txtId.getText().isEmpty()){
 	 			r.setId_reserva(Integer.parseInt(this.txtId.getText()));
-	 		}
+	 			}
 	 			 		
 	 		 java.sql.Date fecha = convertirFecha(this.txtFecha.getText());
 	         r.setFecha(fecha);

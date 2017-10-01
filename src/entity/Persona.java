@@ -51,8 +51,8 @@ public class Persona {
 	public String getContrasenia() {
 		return contrasenia;
 	}
-	public void setContrasenia(String contrasenia) {
-		this.contrasenia = contrasenia;
+	public void setContrasenia(String pas) {
+		this.contrasenia = pas;
 	}
 	public boolean getHabilitado() {
 		return habilitado;

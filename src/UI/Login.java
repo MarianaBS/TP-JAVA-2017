@@ -13,6 +13,11 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
+import controlers.CtrlABMPersona;
+import controlers.CtrlLogin;
+import data.DataLogin;
+import entity.Persona;
+
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -28,6 +33,8 @@ public class Login extends JInternalFrame{
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JPasswordField password;
+	private CtrlLogin ctrl=new CtrlLogin();
+	
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -76,6 +83,7 @@ public class Login extends JInternalFrame{
 		btnAceptar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				aceptarClick();
 			}
 		});
 		
@@ -86,8 +94,8 @@ public class Login extends JInternalFrame{
 		lblOlvidMiClave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				JOptionPane.showMessageDialog(lblOlvidMiClave, "¡Haga memoria!", "Ingreso inválido", EXIT_ON_CLOSE, frameIcon);
-			}
+				JOptionPane.showMessageDialog(rootPane ,"Es Ud. muy descuidado. ¡Haga memoria!", "Mensaje", JOptionPane.WARNING_MESSAGE);}
+ 			
 		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -138,5 +146,37 @@ public class Login extends JInternalFrame{
 					.addContainerGap(42, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);
+	}
+	
+	protected void aceptarClick() {
+ 		try {
+ 			//this.mapearAForm(ctrl.getUsuario(this.txtUsuario.getText(),String.valueOf(this.password.getPassword())));
+ 			String usu= this.txtUsuario.getText();
+ 			String clave = String.valueOf(this.password.getPassword());
+ 			DataLogin dl= new DataLogin();
+ 			Persona usu2= new Persona();
+ 			usu2.setUsuario(usu);
+ 			usu2.setContrasenia(clave);
+ 			Persona u= new Persona();
+ 			u= dl.getUsuario(usu2);
+ 			if(u!=null) {
+ 				JOptionPane.showMessageDialog( rootPane, "Bienvenido/a "+ u.getNombre());
+ 				this.dispose();}
+ 			
+ 			else {JOptionPane.showMessageDialog(rootPane ,"Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);}
+ 			
+ 			
+ 			} catch (Exception e) {
+ 			JOptionPane.showMessageDialog(this, "Error al obtener el ususario");
+ 			}
+ 			 	}
+
+
+	private void mapearAForm(Persona usu) {
+		// TODO Auto-generated method stub
+		this.txtUsuario.setText(usu.getUsuario());
+		this.password.setText(usu.getContrasenia());
+		
+		
 	}
 }
