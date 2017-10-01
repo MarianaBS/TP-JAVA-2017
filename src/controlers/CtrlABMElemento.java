@@ -12,12 +12,10 @@ import entity.Tipo_Elemento;
 public class CtrlABMElemento {
 		private DataElemento dataEle;
 		private DataTipoElemento dataTie;
-		private ArrayList<Elemento> elem;
 		
 	public CtrlABMElemento(){
 		dataEle= new DataElemento();
 		dataTie=new DataTipoElemento();
-		elem= new ArrayList<Elemento>();
 		}
 		
 	public void add(Elemento e) throws Exception{
@@ -30,7 +28,6 @@ public class CtrlABMElemento {
 		
 	public void update(Elemento e) throws Exception{
 		dataEle.update(e);
-		//dataEle.add(e);
 		}
 		
 		

@@ -23,8 +23,6 @@ import controlers.CtrlABMElemento;
 import entity.Elemento;
 import entity.Tipo_Elemento;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class ABMCElementos extends JInternalFrame {
 	private CtrlABMElemento ctrl=new CtrlABMElemento();

@@ -13,8 +13,6 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
-import controlers.CtrlABMPersona;
-import controlers.CtrlLogin;
 import data.DataLogin;
 import entity.Persona;
 
@@ -33,7 +31,6 @@ public class Login extends JInternalFrame{
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JPasswordField password;
-	private CtrlLogin ctrl=new CtrlLogin();
 	
 	
 	public static void main(String[] args) {
@@ -150,7 +147,6 @@ public class Login extends JInternalFrame{
 	
 	protected void aceptarClick() {
  		try {
- 			//this.mapearAForm(ctrl.getUsuario(this.txtUsuario.getText(),String.valueOf(this.password.getPassword())));
  			String usu= this.txtUsuario.getText();
  			String clave = String.valueOf(this.password.getPassword());
  			DataLogin dl= new DataLogin();
@@ -160,10 +156,10 @@ public class Login extends JInternalFrame{
  			Persona u= new Persona();
  			u= dl.getUsuario(usu2);
  			if(u!=null) {
- 				JOptionPane.showMessageDialog( rootPane, "Bienvenido/a "+ u.getNombre());
+ 				JOptionPane.showMessageDialog(this, "Bienvenido/a "+ u.getNombre());
  				this.dispose();}
  			
- 			else {JOptionPane.showMessageDialog(rootPane ,"Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);}
+ 			else {JOptionPane.showMessageDialog(this ,"Usuario y/o contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);}
  			
  			
  			} catch (Exception e) {
@@ -172,11 +168,4 @@ public class Login extends JInternalFrame{
  			 	}
 
 
-	private void mapearAForm(Persona usu) {
-		// TODO Auto-generated method stub
-		this.txtUsuario.setText(usu.getUsuario());
-		this.password.setText(usu.getContrasenia());
-		
-		
 	}
-}

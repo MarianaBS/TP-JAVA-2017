@@ -6,12 +6,10 @@ import entity.Tipo_Elemento;
 
 public class CtrlABMTipoElemento {
 		private DataTipoElemento dataTiEl;
-		private ArrayList<Tipo_Elemento> te;
 		
 		
 		public CtrlABMTipoElemento(){
 		dataTiEl= new DataTipoElemento();
-		te= new ArrayList<Tipo_Elemento>();
 		}
 		
 	
