@@ -72,7 +72,7 @@ public class DataReserva {
 		 			+ "inner join elementos e on e.idelemento=r.id_elemento "
 		 			+ "inner join tipo_elemento te on te.idtipo_elemento=e.idtipo_elemento "
 		 			+ "where estado='pendiente' and (fecha>current_timestamp or "
-		 			+ "(fecha=current_timestamp and hora>current_timestamp)) order by fecha");
+		 			+ "(fecha=current_timestamp and hora>current_timestamp)) order by p.apellido, fecha");
 		 	if(rs!=null){
 		 		while(rs.next()){
 		 			Reserva r=new Reserva();

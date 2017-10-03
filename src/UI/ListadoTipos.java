@@ -79,6 +79,7 @@ public ListadoTipos() {
  ABMCTipoElemento tip= new ABMCTipoElemento();
  tip.showTipo(this.ti.get(indexTipo));
  this.getDesktopPane().add(tip);
+ MainWindow.centrar(tip);
  tip.setVisible(true);}
  else {
 	 JOptionPane.showMessageDialog(this, "Selecione un Tipo de Elemento"); }

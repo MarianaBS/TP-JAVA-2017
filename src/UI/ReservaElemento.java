@@ -45,6 +45,7 @@ public class ReservaElemento extends JInternalFrame {
 	private JTextField txtHora;
 	private JComboBox cboTipos;
 	private JComboBox cboElementos;
+	private JButton btnAceptar;
 
 	
 	public static void main(String[] args) {
@@ -99,11 +100,12 @@ public class ReservaElemento extends JInternalFrame {
 			
  		});
 		
-		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar = new JButton("Aceptar");
 			btnAceptar.addMouseListener(new MouseAdapter() {
  			@Override
  			public void mouseClicked(MouseEvent e) {
  				try {
+ 					if(btnAceptar.isEnabled())
 					aceptarClick();
 					
 				
@@ -226,7 +228,7 @@ public class ReservaElemento extends JInternalFrame {
 	 private void buscarClick() {
 
 		 try {
-			 
+			 btnAceptar.setEnabled(true);
 			 int validar=this.ctrl.validarBotonBuscar(cboTipos.getSelectedIndex(), txtFecha.getText(), txtHora.getText());
 			 if (validar==1)
 			 	{
@@ -267,7 +269,8 @@ public class ReservaElemento extends JInternalFrame {
 	 				
 	 				r.setEstado("pendiente");
 	 	 			ctrl.add(r);
-	 	 			JOptionPane.showMessageDialog(this, "Su reserva fue registrada");}
+	 	 			JOptionPane.showMessageDialog(this, "Su reserva fue registrada");
+	 	 			btnAceptar.setEnabled(false);}
 
 	 			else JOptionPane.showMessageDialog(this, "No cumple con la cantidad de días de anticipación");
 	 			} 

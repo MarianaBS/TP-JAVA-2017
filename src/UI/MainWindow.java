@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import java.awt.Window;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -27,11 +28,12 @@ import entity.Persona;
 import java.awt.BorderLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+
 import UI.*;
 
 public class MainWindow {
 
-private JFrame frmSistemaDeReservas;
+private static JFrame frmSistemaDeReservas;
 private JDesktopPane desktopPane;
 public static Persona usuarioAct;
 public static void main(String[] args) {
@@ -57,7 +59,7 @@ public void run() {
 		        (p.height - v.height) / 2);
 		    
 		    l.setVisible(true);
-		   
+		    	   
 			
 	} catch (Exception e) {
 	e.printStackTrace();
@@ -69,7 +71,7 @@ public void run() {
 public MainWindow() {
 	
 	initialize();
-	//habilitarMenu();
+	
 }
 
 private void initialize() {
@@ -185,6 +187,7 @@ mnuReservasPendientesClick();
 protected void mnuReservasPendientesClick() {
 	// TODO Auto-generated method stub
 	ReservasPendientes rp=new ReservasPendientes();
+	centrar(rp);
 	desktopPane.add(rp);
 	rp.setVisible(true);
 }
@@ -192,7 +195,7 @@ protected void mnuReservasPendientesClick() {
 protected void mnuCerrarSesionClick() {
 	// TODO Auto-generated method stub
 	Login l=new Login();
-	//desktopPane.add(lo);
+	//desktopPane.add(l);
 	l.pack();
 
     Dimension p = Toolkit.getDefaultToolkit().getScreenSize();
@@ -208,28 +211,33 @@ protected void mnuCerrarSesionClick() {
 
 protected void mnuABMCPersonaClick() {
 ABMCPersonaDesktop pd= new ABMCPersonaDesktop();
+centrar(pd);
 desktopPane.add(pd);
 pd.setVisible(true);
 }
 
 protected void mnuListadoPersonaClick() {
 ListadoPersonas lp= new ListadoPersonas();
+centrar(lp);
 desktopPane.add(lp);
 lp.setVisible(true);
 }
 
 protected void mnuABMCTiposClick() {
 ABMCTipoElemento td= new ABMCTipoElemento();
+centrar(td);
 desktopPane.add(td);
 td.setVisible(true);
 }
 protected void mnuListadoTiposClick() {
 ListadoTipos lt= new ListadoTipos();
+centrar(lt);
 desktopPane.add(lt);
 lt.setVisible(true);}
 
 protected void mnuABMCElementosClick() {
 ABMCElementos ed= new ABMCElementos();
+centrar(ed);
 desktopPane.add(ed);
 ed.setVisible(true);
 }
@@ -237,52 +245,54 @@ ed.setVisible(true);
 
 protected void mnuListadoElementosClick() {
 ListadoElementos le= new ListadoElementos();
+centrar(le);
 desktopPane.add(le);
 le.setVisible(true);
 }
 
 protected void mnuReservaElementoClick() {
 	ReservaElemento rel=new ReservaElemento();
+	centrar(rel);
 	desktopPane.add(rel);
 	rel.setVisible(true);
 }
 
-private void mnuSalirClick() {
+protected void mnuSalirClick() {
 	// TODO Auto-generated method stub
 	frmSistemaDeReservas.dispose();
 }
 
 
-public void visibleUsuario()
+protected static void visibleUsuario()
 {
-	frmSistemaDeReservas.getJMenuBar().getMenu(0).setVisible(true);
-	frmSistemaDeReservas.getJMenuBar().getMenu(1).getModel().setEnabled(false);;
+	//frmSistemaDeReservas.getJMenuBar().getMenu(0).setVisible(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(1).getModel().setEnabled(false);
 	frmSistemaDeReservas.getJMenuBar().getMenu(2).getModel().setEnabled(false);;
 	frmSistemaDeReservas.getJMenuBar().getMenu(3).getModel().setEnabled(false);
-	frmSistemaDeReservas.getJMenuBar().getMenu(4).setVisible(true);
+	//frmSistemaDeReservas.getJMenuBar().getMenu(4).setVisible(true);
 }
 
 
-public void visibleAdmin()
+protected static void visibleAdmin()
+{
+	frmSistemaDeReservas.getJMenuBar().getMenu(0).getModel().setEnabled(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(1).getModel().setEnabled(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(2).getModel().setEnabled(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(3).getModel().setEnabled(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(4).getModel().setEnabled(true);
+}
+
+protected static  void visibleEncargado()
 {
 	frmSistemaDeReservas.getJMenuBar().getMenu(0).setVisible(true);
-	frmSistemaDeReservas.getJMenuBar().getMenu(1).setVisible(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(1).getModel().setEnabled(false);
 	frmSistemaDeReservas.getJMenuBar().getMenu(2).setVisible(true);
 	frmSistemaDeReservas.getJMenuBar().getMenu(3).setVisible(true);
 	frmSistemaDeReservas.getJMenuBar().getMenu(4).setVisible(true);
 }
 
-public  void visibleEncargado()
-{
-	frmSistemaDeReservas.getJMenuBar().getMenu(0).setVisible(true);
-	frmSistemaDeReservas.getJMenuBar().getMenu(1).setVisible(false);
-	frmSistemaDeReservas.getJMenuBar().getMenu(2).setVisible(true);
-	frmSistemaDeReservas.getJMenuBar().getMenu(3).setVisible(true);
-	frmSistemaDeReservas.getJMenuBar().getMenu(4).setVisible(true);
-}
 
-
-public void habilitarMenu(){
+public static void habilitarMenu(){
 		
 	   
 		switch (usuarioAct.getCategoria().getId_categoria()){
@@ -304,10 +314,21 @@ public void habilitarMenu(){
 		}
 		break;
 		
-		default: {JOptionPane.showMessageDialog(desktopPane, this ,"Arruinó el sistema!", 0);}
+		default: {JOptionPane.showMessageDialog(frmSistemaDeReservas, "Arruinó el sistema!", "Error", 0);}
 			
 			
 		}
 }
+
+public static void centrar (JInternalFrame jf){
+jf.pack();
+
+Dimension p = Toolkit.getDefaultToolkit().getScreenSize();
+
+Dimension v = jf.getSize();
+
+jf.setLocation((p.width - v.width) / 8,
+			(p.height - v.height) / 10);}
+
 }
 

@@ -28,9 +28,9 @@ public class CtrlLogin {
 	public Persona enviarUsuario(Persona u)
 		{return u;}
 	
-	public void habilitarMenu() throws Exception{
+	/*public void habilitarMenu() throws Exception{
 		
 		new MainWindow().habilitarMenu();
-		;}
+		;}*/
 
 }

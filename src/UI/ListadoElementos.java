@@ -75,6 +75,7 @@ public class ListadoElementos extends JInternalFrame {
 	 le.showElemento(this.elem.get(indexElemento));
 	 
 	 this.getDesktopPane().add(le);
+	 MainWindow.centrar(le);
 	 le.setVisible(true);}
 	 else {
 		 JOptionPane.showMessageDialog(this, "Selecione un Elemento");

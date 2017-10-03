@@ -23,6 +23,7 @@ import controlers.CtrlReserva;
 import entity.Reserva;
 
 import java.sql.*;
+import org.jdesktop.beansbinding.ObjectProperty;
 
 
 public class ReservasPendientes extends JInternalFrame {
@@ -94,9 +95,14 @@ public class ReservasPendientes extends JInternalFrame {
 			 JOptionPane.showMessageDialog(this, "Selecione una Reserva"); 
 			 }
 		}
-	 
 	protected void initDataBindings() {
 		JTableBinding<Reserva, List<Reserva>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, res, table);
+		//
+		BeanProperty<Reserva, String> reservaBeanProperty_4 = BeanProperty.create("persona.apellido");
+		jTableBinding.addColumnBinding(reservaBeanProperty_4).setColumnName("Apellido");
+		//
+		BeanProperty<Reserva, String> reservaBeanProperty_5 = BeanProperty.create("persona.nombre");
+		jTableBinding.addColumnBinding(reservaBeanProperty_5).setColumnName("Nombre");
 		//
 		BeanProperty<Reserva, String> reservaBeanProperty = BeanProperty.create("elemento.nombre");
 		jTableBinding.addColumnBinding(reservaBeanProperty).setColumnName("Elemento").setEditable(false);

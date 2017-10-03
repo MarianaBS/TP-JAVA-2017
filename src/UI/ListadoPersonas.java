@@ -80,7 +80,10 @@ public ListadoPersonas() {
  pd.showPersona(this.pers.get(indexPersona));
  
  this.getDesktopPane().add(pd);
- pd.setVisible(true);}
+ MainWindow.centrar(pd);
+ pd.setVisible(true);
+ //this.dispose();
+ }
  else { 
 	 JOptionPane.showMessageDialog(this, "Selecione una Persona"); 
 	 }

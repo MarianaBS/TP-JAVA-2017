@@ -166,7 +166,7 @@ public class Login extends javax.swing.JDialog{
  			if(u!=null) {
  				if(u.getHabilitado()){
  				UI.MainWindow.usuarioAct=u;
- 				//ctrl.habilitarMenu();
+ 				UI.MainWindow.habilitarMenu();
  				JOptionPane.showMessageDialog(this, "Bienvenido/a "+ u.getNombre());
  				this.dispose();
  				}
