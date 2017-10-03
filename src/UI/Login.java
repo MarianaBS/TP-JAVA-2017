@@ -1,6 +1,9 @@
 package UI;
 
 import javax.swing.JInternalFrame;
+
+import UI.MainWindow;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -13,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
+import controlers.CtrlLogin;
 import data.DataLogin;
 import entity.Persona;
 
@@ -22,8 +26,10 @@ import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-public class Login extends JInternalFrame{
+public class Login extends javax.swing.JDialog{
 	/**
 	 * 
 	 */
@@ -31,6 +37,8 @@ public class Login extends JInternalFrame{
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JPasswordField password;
+	private CtrlLogin ctrl=new CtrlLogin();
+	
 	
 	
 	public static void main(String[] args) {
@@ -49,7 +57,14 @@ public class Login extends JInternalFrame{
 	
 	
 	public Login() {
-		setClosable(true);
+		addWindowListener(new WindowAdapter() {
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+		//setClosable(false);
 		setTitle("Login");
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -62,7 +77,7 @@ public class Login extends JInternalFrame{
 		
 		JLabel lblBienvenidosAlSistema = new JLabel("\u00A1Bienvenido al Sistema de Reservas! ");
 		
-		JLabel lblIngreseSusDatos = new JLabel("Ingrese sus datos");
+		JLabel lblIngreseSusDatos = new JLabel("Por favor, ingrese sus datos");
 		
 		JLabel lblUsuario = new JLabel("Usuario");
 		
@@ -99,25 +114,25 @@ public class Login extends JInternalFrame{
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(82)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(44)
-							.addComponent(lblIngreseSusDatos))
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addComponent(lblContrasea)
-									.addComponent(lblUsuario))
-								.addGap(10)
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(password)
-									.addComponent(txtUsuario, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)))
-							.addComponent(lblBienvenidosAlSistema)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(lblOlvidMiClave)
-								.addGap(18)
-								.addComponent(btnAceptar))))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblContrasea)
+								.addComponent(lblUsuario))
+							.addGap(10)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(password)
+								.addComponent(txtUsuario, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)))
+						.addComponent(lblBienvenidosAlSistema)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblOlvidMiClave)
+							.addGap(18)
+							.addComponent(btnAceptar)))
 					.addContainerGap(87, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(110, Short.MAX_VALUE)
+					.addComponent(lblIngreseSusDatos)
+					.addGap(104))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -147,25 +162,40 @@ public class Login extends JInternalFrame{
 	
 	protected void aceptarClick() {
  		try {
- 			String usu= this.txtUsuario.getText();
- 			String clave = String.valueOf(this.password.getPassword());
- 			DataLogin dl= new DataLogin();
- 			Persona usu2= new Persona();
- 			usu2.setUsuario(usu);
- 			usu2.setContrasenia(clave);
- 			Persona u= new Persona();
- 			u= dl.getUsuario(usu2);
+ 			Persona u = mapearUsuario();
  			if(u!=null) {
+ 				if(u.getHabilitado()){
+ 				UI.MainWindow.usuarioAct=u;
+ 				//ctrl.habilitarMenu();
  				JOptionPane.showMessageDialog(this, "Bienvenido/a "+ u.getNombre());
- 				this.dispose();}
+ 				this.dispose();
+ 				}
+ 				else {JOptionPane.showMessageDialog(this ,"Usuario inhabilitado", "Error", JOptionPane.WARNING_MESSAGE);}
+ 				}
+ 				
  			
  			else {JOptionPane.showMessageDialog(this ,"Usuario y/o contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);}
  			
  			
  			} catch (Exception e) {
  			JOptionPane.showMessageDialog(this, "Error al obtener el ususario");
- 			}
- 			 	}
+ 			}}
+
+
+	public Persona mapearUsuario() throws Exception {
+		String usu= this.txtUsuario.getText();
+		String clave = String.valueOf(this.password.getPassword());
+		DataLogin dl= new DataLogin();
+		Persona usu2= new Persona();
+		usu2.setUsuario(usu);
+		usu2.setContrasenia(clave);
+		Persona u= new Persona();
+		u= dl.getUsuario(usu2);
+		return u;
+	}
+ 			 	
+	
+ 		
 
 
 	}

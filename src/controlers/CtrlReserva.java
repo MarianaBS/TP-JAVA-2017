@@ -49,7 +49,15 @@ public class CtrlReserva {
 	public ArrayList<Reserva> getReservasPendientes() throws Exception{
 		return dataRes.getReservasPendientes();
 			}
-
+	
+	public ArrayList<Reserva> getAllPendientes() throws Exception{
+		return dataRes.getAllPendientes();
+			}
+	
+	public ArrayList<Reserva> getPendientes() throws Exception{
+		return dataRes.getPendientes();
+			}
+	
 	public ArrayList<Tipo_Elemento>getTipos() throws Exception{ 
 		// TODO Auto-generated method stub
 		return dataTip.getAll();

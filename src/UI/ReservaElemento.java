@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 
 import controlers.CtrlABMPersona;
+import controlers.CtrlLogin;
 import controlers.CtrlReserva;
 
 import java.text.ParseException;
@@ -263,7 +264,8 @@ public class ReservaElemento extends JInternalFrame {
 			Reserva r=this.mapearDeForm();
 			try{
 	 			if(ctrl.validar(r)){
-	 	 			r.setEstado("pendiente");
+	 				
+	 				r.setEstado("pendiente");
 	 	 			ctrl.add(r);
 	 	 			JOptionPane.showMessageDialog(this, "Su reserva fue registrada");}
 
@@ -291,11 +293,11 @@ public class ReservaElemento extends JInternalFrame {
 	         java.sql.Time hora = convertirHora(this.txtHora.getText());
    	 		 r.setHora(hora);
 	 		
-	 				
+
 	 		 CtrlABMPersona cper=new CtrlABMPersona(); 		
-	 		 r.setPersona(cper.getByDni("987654"));
+	 		 r.setPersona(cper.getByDni(UI.MainWindow.usuarioAct));	
 	 		
-	 		 	if (cboElementos.getSelectedIndex() != -1)
+	 		 if (cboElementos.getSelectedIndex() != -1)
 	 		 	{
 	 		 	 Elemento ele=(Elemento)cboElementos.getSelectedItem();
 	 			 ele.setTipo_Elem((Tipo_Elemento)cboTipos.getSelectedItem());

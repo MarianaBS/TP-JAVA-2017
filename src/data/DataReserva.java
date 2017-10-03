@@ -1,5 +1,8 @@
 package data;
 import java.util.ArrayList;
+
+import UI.*;
+
 import java.util.Calendar;
 import java.sql.*;
 import java.util.Date;
@@ -11,6 +14,54 @@ import entity.*;
 
 public class DataReserva {
 	public ArrayList<Reserva> getReservasPendientes() throws Exception{
+		Statement stmt=null;
+		ResultSet rs=null;
+		ArrayList<Reserva> res= new ArrayList<Reserva>();
+		try {
+		 	stmt = FactoryConexion.getInstancia().getConn().createStatement();
+		 	rs = stmt.executeQuery("select * from reservas r "
+		 			+ "inner join  personas p on p.idpersona=r.id_persona "
+		 			+ "inner join elementos e on e.idelemento=r.id_elemento "
+		 			+ "inner join tipo_elemento te on te.idtipo_elemento=e.idtipo_elemento "
+		 			+ "where p.idpersona='" + UI.MainWindow.usuarioAct.getIdpersona()+ "'and estado='pendiente' and (fecha>current_timestamp or "
+		 			+ "(fecha=current_timestamp and hora>current_timestamp)) order by fecha");
+		 	if(rs!=null){
+		 		while(rs.next()){
+		 			Reserva r=new Reserva();
+		 			r.setPersona(new Persona());
+		 			r.setElemento(new Elemento());
+		 			r.setId_reserva(rs.getInt("id_reserva"));
+		 			r.setDetalle(rs.getString("detalle"));
+		 			r.setEstado(rs.getString("estado"));
+		 			r.setFecha(rs.getDate("fecha"));
+		 			r.setHora(rs.getTime("hora"));
+		 			r.getElemento().setIdelemento(rs.getInt("r.id_elemento"));
+		 			r.getElemento().setNombre(rs.getString("e.nombre"));
+		 			r.getElemento().setTipo_Elem(new Tipo_Elemento());
+		 			r.getElemento().getTipo_Elem().setIdtipo_elemento(rs.getInt("te.idtipo_elemento"));
+		 			r.getElemento().getTipo_Elem().setNombre_tipo(rs.getString("nombre_tipo"));
+		 			r.getPersona().setIdpersona(rs.getInt("idpersona"));
+		 			r.getPersona().setApellido(rs.getString("apellido"));
+		 			r.getPersona().setNombre(rs.getString("p.nombre"));
+		 			res.add(r);
+		 						}
+		 				}		
+			} catch (SQLException e) {throw e;
+			} catch (AppDataException ade){
+					throw ade;
+				 		}
+				try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					e.printStackTrace();
+		 		}
+				
+ 		return res;
+ 		}
+		 	
+	public ArrayList<Reserva> getAllPendientes() throws Exception{
 		Statement stmt=null;
 		ResultSet rs=null;
 		ArrayList<Reserva> res= new ArrayList<Reserva>();
@@ -57,7 +108,7 @@ public class DataReserva {
 				
  		return res;
  		}
-		 	
+		 
 	public void add(Reserva r) throws Exception{
  		PreparedStatement stmt=null;
  		ResultSet keyResultSet=null;
@@ -215,8 +266,16 @@ public class DataReserva {
 					 }*/
 
 }
-	
-	
+
+public ArrayList<Reserva> getPendientes() throws Exception{
+	DataReserva dr=new DataReserva();
+	ArrayList<Reserva> resXUs=new ArrayList<Reserva>();
+	for(Reserva r: dr.getAllPendientes()){
+		if(r.getPersona().getIdpersona() == UI.MainWindow.usuarioAct.getIdpersona())
+		{resXUs.add(r);}
+	}
+	return resXUs;
+}
 	
 	
 }

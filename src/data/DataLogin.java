@@ -16,7 +16,7 @@ public class DataLogin {
  		ResultSet rs=null;
  		try {
  			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select idpersona, dni, nombre, apellido,"
- 					+ "usuario, contrasenia, habilitado, p.id_categoria"
+ 					+ "usuario, contrasenia, habilitado, p.id_categoria, c.descripcion"
 		 			+ " from personas p inner join categorias c on "
 		 			+ "c.id_categoria=p.id_categoria where usuario=? and contrasenia=?");
  			stmt.setString(1, us.getUsuario());
@@ -33,7 +33,7 @@ public class DataLogin {
  					u.setContrasenia(rs.getString("contrasenia"));
  					u.setHabilitado(rs.getBoolean("habilitado"));
  					u.getCategoria().setId_categoria(rs.getInt("p.id_categoria"));
- 					//u.getCategoria().setDescripcion(rs.getString("descripcion"));
+ 					u.getCategoria().setDescripcion(rs.getString("descripcion"));
  					 					
  			}
  			

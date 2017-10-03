@@ -64,8 +64,14 @@ public class ReservasPendientes extends JInternalFrame {
 	 table.setBackground(Color.LIGHT_GRAY);
 	 getContentPane().setLayout(groupLayout);
 	 try{
-	 this.res= ctrl.getReservasPendientes();
-	 		} catch (Exception e){
+		 if(UI.MainWindow.usuarioAct.getCategoria().getId_categoria()==2){
+			 this.res=ctrl.getAllPendientes();
+		 }
+		 else{//this.res= ctrl.getReservasPendientes();
+			 this.res=ctrl.getPendientes();
+		 }
+	 		} 
+	 catch (Exception e){
 	 JOptionPane.showMessageDialog(this,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 	 
 	 }

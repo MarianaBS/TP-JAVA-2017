@@ -4,24 +4,36 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
  
 
+import java.awt.Menu;
+import java.awt.MenuItem;
 import java.awt.Toolkit;
+import java.awt.Window;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JDesktopPane;
 
+import controlers.CtrlLogin;
+import entity.Categoria;
+import entity.Persona;
+
 import java.awt.BorderLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import UI.*;
 
 public class MainWindow {
 
 private JFrame frmSistemaDeReservas;
 private JDesktopPane desktopPane;
+public static Persona usuarioAct;
 public static void main(String[] args) {
 EventQueue.invokeLater(new Runnable() {
 
@@ -33,6 +45,19 @@ public void run() {
 			window.frmSistemaDeReservas.setLocation(Integer.valueOf((pantalla.width-ventana.width)/2), 
 					Integer.valueOf(pantalla.height-ventana.height)/2);
 			window.frmSistemaDeReservas.setVisible(true);
+			Login l=new Login();
+			l.pack();
+
+		    Dimension p = Toolkit.getDefaultToolkit().getScreenSize();
+		    
+		    Dimension v = l.getSize();
+		    
+		    l.setLocation(
+		        (p.width - v.width) / 2,
+		        (p.height - v.height) / 2);
+		    
+		    l.setVisible(true);
+		   
 			
 	} catch (Exception e) {
 	e.printStackTrace();
@@ -42,7 +67,9 @@ public void run() {
 }
 
 public MainWindow() {
-initialize();
+	
+	initialize();
+	//habilitarMenu();
 }
 
 private void initialize() {
@@ -57,11 +84,10 @@ frmSistemaDeReservas.getContentPane().add(desktopPane, BorderLayout.CENTER);
 
 JMenuBar menuBar = new JMenuBar();
 frmSistemaDeReservas.setJMenuBar(menuBar);
-//menuBar.setVisible(false);
-mnuCerrarSesionClick();
 JMenu mnuInicio = new JMenu("Inicio");
 menuBar.add(mnuInicio);
 JMenuItem mnuCerrarSesion = new JMenuItem("Cerrar Sesi\u00F3n");
+
 mnuCerrarSesion.addActionListener(new ActionListener() {
 	public void actionPerformed(ActionEvent e) {
 		mnuCerrarSesionClick();
@@ -78,6 +104,9 @@ mnuInicio.add(mnuSalir);
 JMenu mnuPersona = new JMenu("Personas");
 menuBar.add(mnuPersona);
 JMenuItem mnuABMCPersona = new JMenuItem("ABMCPersonas");
+mnuABMCPersona.addComponentListener(new ComponentAdapter() {
+});
+//mnuABMCPersona.setVisible(false);
 mnuABMCPersona.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuABMCPersonaClick();
@@ -86,6 +115,7 @@ mnuABMCPersonaClick();
 mnuPersona.add(mnuABMCPersona);
 
 JMenuItem mntmListado = new JMenuItem("Listado");
+//mntmListado.setVisible(false);
 mntmListado.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuListadoPersonaClick();
@@ -95,6 +125,7 @@ mnuPersona.add(mntmListado);
 JMenu mnuTipos = new JMenu("Tipos de Elementos");
 JMenuItem mnuABMCTipos = new JMenuItem("ABMC Tipos");
 mnuTipos.add(mnuABMCTipos);
+//mnuABMCTipos.setVisible(false);
 mnuABMCTipos.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuABMCTiposClick();
@@ -103,6 +134,7 @@ mnuABMCTiposClick();
 menuBar.add(mnuTipos);
 
 JMenuItem mnuListadoTipos = new JMenuItem("Listado");
+//mnuListadoTipos.setVisible(false);
 mnuListadoTipos.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuListadoTiposClick();
@@ -114,6 +146,7 @@ JMenu mnuElementos = new JMenu("Elementos");
 menuBar.add(mnuElementos);
 JMenuItem mnuABMCElementos = new JMenuItem("ABMC Elementos");
 mnuElementos.add(mnuABMCElementos);
+//mnuABMCElementos.setVisible(false);
 mnuABMCElementos.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuABMCElementosClick();
@@ -121,6 +154,7 @@ mnuABMCElementosClick();
 
 JMenuItem mnuListadoElementos = new JMenuItem("Listado ");
 mnuElementos.add(mnuListadoElementos);
+//mnuListadoElementos.setVisible(false);
 mnuListadoElementos.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuListadoElementosClick();
@@ -131,6 +165,7 @@ JMenu mnuReservas = new JMenu("Reservas");
 menuBar.add(mnuReservas);
 JMenuItem mnuReservaElemento = new JMenuItem("Reserva Elemento");
 mnuReservas.add(mnuReservaElemento);
+//mnuReservaElemento.setVisible(false);
 mnuReservaElemento.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuReservaElementoClick();
@@ -138,10 +173,13 @@ mnuReservaElementoClick();
 
 JMenuItem mnuReservasPendientes = new JMenuItem("Reservas pendientes");
 mnuReservas.add(mnuReservasPendientes);
+//mnuReservasPendientes.setVisible(false);
 mnuReservasPendientes.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuReservasPendientesClick();
 }});
+
+
 }
 
 protected void mnuReservasPendientesClick() {
@@ -153,9 +191,19 @@ protected void mnuReservasPendientesClick() {
 
 protected void mnuCerrarSesionClick() {
 	// TODO Auto-generated method stub
-	Login lo=new Login();
-	desktopPane.add(lo);
-	lo.setVisible(true);
+	Login l=new Login();
+	//desktopPane.add(lo);
+	l.pack();
+
+    Dimension p = Toolkit.getDefaultToolkit().getScreenSize();
+    
+    Dimension v = l.getSize();
+    
+    l.setLocation(
+        (p.width - v.width) / 2,
+        (p.height - v.height) / 2);
+    
+    l.setVisible(true);
 }
 
 protected void mnuABMCPersonaClick() {
@@ -202,6 +250,64 @@ protected void mnuReservaElementoClick() {
 private void mnuSalirClick() {
 	// TODO Auto-generated method stub
 	frmSistemaDeReservas.dispose();
+}
+
+
+public void visibleUsuario()
+{
+	frmSistemaDeReservas.getJMenuBar().getMenu(0).setVisible(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(1).getModel().setEnabled(false);;
+	frmSistemaDeReservas.getJMenuBar().getMenu(2).getModel().setEnabled(false);;
+	frmSistemaDeReservas.getJMenuBar().getMenu(3).getModel().setEnabled(false);
+	frmSistemaDeReservas.getJMenuBar().getMenu(4).setVisible(true);
+}
+
+
+public void visibleAdmin()
+{
+	frmSistemaDeReservas.getJMenuBar().getMenu(0).setVisible(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(1).setVisible(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(2).setVisible(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(3).setVisible(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(4).setVisible(true);
+}
+
+public  void visibleEncargado()
+{
+	frmSistemaDeReservas.getJMenuBar().getMenu(0).setVisible(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(1).setVisible(false);
+	frmSistemaDeReservas.getJMenuBar().getMenu(2).setVisible(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(3).setVisible(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(4).setVisible(true);
+}
+
+
+public void habilitarMenu(){
+		
+	   
+		switch (usuarioAct.getCategoria().getId_categoria()){
+		case 1:
+		{
+			visibleEncargado();
+		}
+		break;
+		
+		case 2:
+		{
+			visibleAdmin();
+		}
+		break;
+		
+		case 3:
+		{
+			visibleUsuario();
+		}
+		break;
+		
+		default: {JOptionPane.showMessageDialog(desktopPane, this ,"Arruinó el sistema!", 0);}
+			
+			
+		}
 }
 }
 
