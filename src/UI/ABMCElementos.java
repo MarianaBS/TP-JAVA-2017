@@ -191,7 +191,8 @@ public class ABMCElementos extends JInternalFrame {
 	 		Elemento el = this.mapearDeForm();
 	 		try{
 	 			ctrl.add(el);
-	 			JOptionPane.showMessageDialog(this, "El elemento fue registrado");
+	 			JOptionPane.showMessageDialog(this, "El elemento fue registrado con el nro " + el.getIdelemento());
+	 			this.limpiarCampos();
 	 			} catch (Exception e) {
 	 			JOptionPane.showMessageDialog(this, "No se pudo guardar");
 	 			}
@@ -202,6 +203,7 @@ public class ABMCElementos extends JInternalFrame {
 	 		try{
 	 			ctrl.delete(this.mapearDeForm());
 	 			JOptionPane.showMessageDialog(this, "El elemento fue eliminado");
+	 			this.limpiarCampos();
 	 			} catch (Exception e) {
 	 			JOptionPane.showMessageDialog(this, e.getMessage());
 	 			}
@@ -210,6 +212,7 @@ public class ABMCElementos extends JInternalFrame {
 	 		try{
 	 			ctrl.update(this.mapearDeForm());
 	 			JOptionPane.showMessageDialog(this, "Los datos del elemento fueron modificados");
+	 			this.limpiarCampos();
 	 			} catch (Exception e) {
 	 			JOptionPane.showMessageDialog(this, e.getMessage());
 	 			}
@@ -238,4 +241,10 @@ public class ABMCElementos extends JInternalFrame {
 	 		 this.mapearAForm(e);
 	 		 	
 	 		 }
+	 	
+	 	private void limpiarCampos(){
+	 		this.txtId.setText("");
+	 		this.txtNombre.setText("");
+	 		this.cboTipos.setSelectedIndex(-1);
+	 		}
 }

@@ -165,8 +165,8 @@ public class Login extends javax.swing.JDialog{
  			Persona u = mapearUsuario();
  			if(u!=null) {
  				if(u.getHabilitado()){
- 				UI.MainWindow.usuarioAct=u;
- 				UI.MainWindow.habilitarMenu();
+ 				MainWindow.usuarioAct=u;
+ 				MainWindow.habilitarMenu();
  				JOptionPane.showMessageDialog(this, "Bienvenido/a "+ u.getNombre());
  				this.dispose();
  				}

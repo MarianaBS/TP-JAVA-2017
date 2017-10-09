@@ -160,4 +160,39 @@ throw e;
  			e.printStackTrace();
  		}
  	}
+	
+	public ArrayList<Tipo_Elemento> getAllEncargado() throws Exception{
+
+		Statement stmt=null;
+		ResultSet rs=null;
+		ArrayList<Tipo_Elemento> tipos= new ArrayList<Tipo_Elemento>();
+		try{
+			stmt = FactoryConexion.getInstancia().getConn().createStatement();
+			rs = stmt.executeQuery("select * from tipo_elemento where encargado=false order by nombre_tipo");
+			if(rs!=null){
+				while(rs.next()){
+					Tipo_Elemento t=new Tipo_Elemento();
+					t.setIdtipo_elemento(rs.getInt("idtipo_elemento"));
+					t.setNombre_tipo(rs.getString("nombre_tipo"));
+					t.setCant_max(rs.getInt("cant_max"));
+					t.setLim_tiempo(rs.getInt("lim_tiempo"));
+					t.setDias_anticip(rs.getInt("dias_anticip"));
+					//t.setEncargado(rs.getBoolean("encargado"));
+					tipos.add(t);
+					}
+				}
+			} catch (Exception e){
+				throw e;
+			}
+			
+			try {
+				if(rs!=null) rs.close();
+				if(stmt!=null) stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return tipos;
+		}
 }

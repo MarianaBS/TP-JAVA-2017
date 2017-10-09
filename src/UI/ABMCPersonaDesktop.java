@@ -310,13 +310,15 @@ public static void main(String[] args) {
  			JOptionPane.showMessageDialog(this, "No se pudo guardar");
  			}
  			this.txtId.setText(String.valueOf(p.getIdpersona()));
- 			JOptionPane.showMessageDialog(this, "La persona fue registrada");}
+ 			JOptionPane.showMessageDialog(this, "La persona fue registrada con el nro " + p.getIdpersona());
+ 			this.limpiarCampos();}
  			 		
  			 	
  	protected void borrarClick(){
  		try{
  			ctrl.delete(this.mapearDeForm());
  			JOptionPane.showMessageDialog(this, "La persona fue eliminada");
+ 			this.limpiarCampos();
  			} catch (Exception e) {
  			JOptionPane.showMessageDialog(this, e.getMessage());
  			}
@@ -325,6 +327,7 @@ public static void main(String[] args) {
  		try{
  			ctrl.update(this.mapearDeForm());
  			JOptionPane.showMessageDialog(this, "Los datos de la persona fueron modificados");
+ 			this.limpiarCampos();
  		} catch (Exception e) {
  			JOptionPane.showMessageDialog(this, e.getMessage());
  		}
@@ -364,4 +367,15 @@ public static void main(String[] args) {
  		 }
 	protected void initDataBindings() {
 	}
+	
+	private void limpiarCampos(){
+		this.txtId.setText("");
+		this.txtDni.setText("");
+		this.txtApellido.setText("");
+		this.txtNombre.setText("");
+		this.txtUsuario.setText("");
+		this.txtContrasenia.setText("");
+		this.cboCategoria.setSelectedIndex(-1);
+		this.chkHabilitado.setSelected(false);
+		}
  }

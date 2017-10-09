@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 
+import UI.MainWindow;
 import data.DataElemento;
 import data.DataPersona;
 import data.DataReserva;
@@ -60,7 +61,10 @@ public class CtrlReserva {
 	
 	public ArrayList<Tipo_Elemento>getTipos() throws Exception{ 
 		// TODO Auto-generated method stub
+		if (MainWindow.usuarioAct.getCategoria().getId_categoria()==1)
 		return dataTip.getAll();
+		else return dataTip.getAllEncargado();
+		
 	}
 	
 	public boolean validar(Reserva r){

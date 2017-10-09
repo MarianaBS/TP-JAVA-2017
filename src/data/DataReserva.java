@@ -271,7 +271,7 @@ public ArrayList<Reserva> getPendientes() throws Exception{
 	DataReserva dr=new DataReserva();
 	ArrayList<Reserva> resXUs=new ArrayList<Reserva>();
 	for(Reserva r: dr.getAllPendientes()){
-		if(r.getPersona().getIdpersona() == UI.MainWindow.usuarioAct.getIdpersona())
+		if(r.getPersona().getIdpersona() == MainWindow.usuarioAct.getIdpersona())
 		{resXUs.add(r);}
 	}
 	return resXUs;

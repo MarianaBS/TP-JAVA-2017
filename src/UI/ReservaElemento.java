@@ -267,20 +267,23 @@ public class ReservaElemento extends JInternalFrame {
 			try{
 	 			if(ctrl.validar(r)){
 	 				
-	 				r.setEstado("pendiente");
-	 	 			ctrl.add(r);
-	 	 			JOptionPane.showMessageDialog(this, "Su reserva fue registrada");
-	 	 			btnAceptar.setEnabled(false);}
+	 				if(ctrl.getPendientes().size() < r.getElemento().getTipo_Elem().getCant_max()){
+	 				
+	 					r.setEstado("pendiente");
+	 					ctrl.add(r);
+	 					JOptionPane.showMessageDialog(this, "Su reserva fue registrada con el nro " + r.getId_reserva());
+	 					btnAceptar.setEnabled(false);
+	 					this.txtId.setText(String.valueOf(r.getId_reserva()));
+	 					//this.limpiarCampos();
+	 					;}
+	 				
+	 				else JOptionPane.showMessageDialog(this, "Supera la cantidad máxima de reservas de ese tipo");}
 
 	 			else JOptionPane.showMessageDialog(this, "No cumple con la cantidad de días de anticipación");
-	 			} 
+	 					} 
 			catch (Exception e) { JOptionPane.showMessageDialog(this, "No se pudo guardar");
+	 				}
 	 			}
-	 			
-			this.txtId.setText(String.valueOf(r.getId_reserva()));
-			
-	 			 		
-	 			 	}
 		
 		
 		private Reserva mapearDeForm() throws Exception {
@@ -298,7 +301,7 @@ public class ReservaElemento extends JInternalFrame {
 	 		
 
 	 		 CtrlABMPersona cper=new CtrlABMPersona(); 		
-	 		 r.setPersona(cper.getByDni(UI.MainWindow.usuarioAct));	
+	 		 r.setPersona(cper.getByDni(MainWindow.usuarioAct));	
 	 		
 	 		 if (cboElementos.getSelectedIndex() != -1)
 	 		 	{
@@ -346,5 +349,15 @@ public class ReservaElemento extends JInternalFrame {
 	 		 this.mapearAForm(r);
 	 		 	
 	 		 }
+		
+		private void limpiarCampos(){
+			this.txtId.setText("");
+			this.cboTipos.setSelectedIndex(-1);
+			this.txtFecha.setText("");
+			this.txtHora.setText("");
+			this.cboElementos.setSelectedIndex(-1);
+			this.txtDetalle.setText("  ");
+			
+		}
 }
 

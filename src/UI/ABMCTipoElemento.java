@@ -267,7 +267,8 @@ public class ABMCTipoElemento extends JInternalFrame {
  			 	}
  	protected void agregarClick() {
  		Tipo_Elemento t = this.mapearDeForm();
- 		JOptionPane.showMessageDialog(this, "El tipo de elemento fue registrado");
+ 		JOptionPane.showMessageDialog(this, "El tipo de elemento fue registrado con el nro " + t.getIdtipo_elemento());
+ 		this.limpiarCampos();
  		try{
  			ctrl.add(t);
  			} catch (Exception e) {
@@ -280,6 +281,7 @@ public class ABMCTipoElemento extends JInternalFrame {
  		try{
  			ctrl.delete(this.mapearDeForm());
  			JOptionPane.showMessageDialog(this, "El tipo de elemento fue elimninado");
+ 			this.limpiarCampos();
  			} catch (Exception e) {
  			JOptionPane.showMessageDialog(this, e.getMessage());
  			}
@@ -288,6 +290,7 @@ public class ABMCTipoElemento extends JInternalFrame {
  		try{
  			ctrl.update(this.mapearDeForm());
  			JOptionPane.showMessageDialog(this, "Los datos del tipo de elemento fueron modificados");
+ 			this.limpiarCampos();
  			} catch (Exception e) {
  			JOptionPane.showMessageDialog(this, e.getMessage());
  			}
@@ -320,4 +323,13 @@ public class ABMCTipoElemento extends JInternalFrame {
 		 this.mapearAForm(t);
 		 	
 		 }
+ 	
+ 	private void limpiarCampos(){
+		this.txtID.setText("");
+		this.txtCantMax.setText("");
+		this.txtDiasAntic.setText("");
+		this.txtLimite.setText("");
+		this.txtNombre.setText("");
+		this.chkEncargado.setSelected(false);
+		}
 }

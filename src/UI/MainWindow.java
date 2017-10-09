@@ -1,5 +1,6 @@
 package UI;
  
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
  
@@ -36,6 +37,11 @@ public class MainWindow {
 private static JFrame frmSistemaDeReservas;
 private JDesktopPane desktopPane;
 public static Persona usuarioAct;
+private JMenu mnuPersona;
+private JMenu mnuElementos;
+private JMenu mnuReservas;
+private JMenu mnuTipos;
+private JMenu mnuInicio;
 public static void main(String[] args) {
 EventQueue.invokeLater(new Runnable() {
 
@@ -71,6 +77,8 @@ public void run() {
 public MainWindow() {
 	
 	initialize();
+	//frmSistemaDeReservas.getContentPane().setBackground(Color.green);
+
 	
 }
 
@@ -86,7 +94,7 @@ frmSistemaDeReservas.getContentPane().add(desktopPane, BorderLayout.CENTER);
 
 JMenuBar menuBar = new JMenuBar();
 frmSistemaDeReservas.setJMenuBar(menuBar);
-JMenu mnuInicio = new JMenu("Inicio");
+mnuInicio = new JMenu("Inicio");
 menuBar.add(mnuInicio);
 JMenuItem mnuCerrarSesion = new JMenuItem("Cerrar Sesi\u00F3n");
 
@@ -103,12 +111,11 @@ mnuSalir.addActionListener(new ActionListener() {
 	}
 });
 mnuInicio.add(mnuSalir);
-JMenu mnuPersona = new JMenu("Personas");
+mnuPersona = new JMenu("Personas");
 menuBar.add(mnuPersona);
 JMenuItem mnuABMCPersona = new JMenuItem("ABMCPersonas");
 mnuABMCPersona.addComponentListener(new ComponentAdapter() {
 });
-//mnuABMCPersona.setVisible(false);
 mnuABMCPersona.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuABMCPersonaClick();
@@ -117,17 +124,15 @@ mnuABMCPersonaClick();
 mnuPersona.add(mnuABMCPersona);
 
 JMenuItem mntmListado = new JMenuItem("Listado");
-//mntmListado.setVisible(false);
 mntmListado.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuListadoPersonaClick();
 }
 });
 mnuPersona.add(mntmListado);
-JMenu mnuTipos = new JMenu("Tipos de Elementos");
+mnuTipos = new JMenu("Tipos de Elementos");
 JMenuItem mnuABMCTipos = new JMenuItem("ABMC Tipos");
 mnuTipos.add(mnuABMCTipos);
-//mnuABMCTipos.setVisible(false);
 mnuABMCTipos.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuABMCTiposClick();
@@ -136,7 +141,6 @@ mnuABMCTiposClick();
 menuBar.add(mnuTipos);
 
 JMenuItem mnuListadoTipos = new JMenuItem("Listado");
-//mnuListadoTipos.setVisible(false);
 mnuListadoTipos.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuListadoTiposClick();
@@ -144,11 +148,10 @@ mnuListadoTiposClick();
 });
 mnuTipos.add(mnuListadoTipos);
 
-JMenu mnuElementos = new JMenu("Elementos");
+mnuElementos = new JMenu("Elementos");
 menuBar.add(mnuElementos);
 JMenuItem mnuABMCElementos = new JMenuItem("ABMC Elementos");
 mnuElementos.add(mnuABMCElementos);
-//mnuABMCElementos.setVisible(false);
 mnuABMCElementos.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuABMCElementosClick();
@@ -156,18 +159,16 @@ mnuABMCElementosClick();
 
 JMenuItem mnuListadoElementos = new JMenuItem("Listado ");
 mnuElementos.add(mnuListadoElementos);
-//mnuListadoElementos.setVisible(false);
 mnuListadoElementos.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuListadoElementosClick();
 }});
 
 
-JMenu mnuReservas = new JMenu("Reservas");
+mnuReservas = new JMenu("Reservas");
 menuBar.add(mnuReservas);
 JMenuItem mnuReservaElemento = new JMenuItem("Reserva Elemento");
 mnuReservas.add(mnuReservaElemento);
-//mnuReservaElemento.setVisible(false);
 mnuReservaElemento.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuReservaElementoClick();
@@ -175,7 +176,6 @@ mnuReservaElementoClick();
 
 JMenuItem mnuReservasPendientes = new JMenuItem("Reservas pendientes");
 mnuReservas.add(mnuReservasPendientes);
-//mnuReservasPendientes.setVisible(false);
 mnuReservasPendientes.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent arg0) {
 mnuReservasPendientesClick();
@@ -187,7 +187,7 @@ mnuReservasPendientesClick();
 protected void mnuReservasPendientesClick() {
 	// TODO Auto-generated method stub
 	ReservasPendientes rp=new ReservasPendientes();
-	centrar(rp);
+	MainWindow.centrar(rp);
 	desktopPane.add(rp);
 	rp.setVisible(true);
 }
@@ -195,7 +195,6 @@ protected void mnuReservasPendientesClick() {
 protected void mnuCerrarSesionClick() {
 	// TODO Auto-generated method stub
 	Login l=new Login();
-	//desktopPane.add(l);
 	l.pack();
 
     Dimension p = Toolkit.getDefaultToolkit().getScreenSize();
@@ -211,33 +210,33 @@ protected void mnuCerrarSesionClick() {
 
 protected void mnuABMCPersonaClick() {
 ABMCPersonaDesktop pd= new ABMCPersonaDesktop();
-centrar(pd);
+MainWindow.centrar(pd);
 desktopPane.add(pd);
 pd.setVisible(true);
 }
 
 protected void mnuListadoPersonaClick() {
 ListadoPersonas lp= new ListadoPersonas();
-centrar(lp);
+MainWindow.centrar(lp);
 desktopPane.add(lp);
 lp.setVisible(true);
 }
 
 protected void mnuABMCTiposClick() {
 ABMCTipoElemento td= new ABMCTipoElemento();
-centrar(td);
+MainWindow.centrar(td);
 desktopPane.add(td);
 td.setVisible(true);
 }
 protected void mnuListadoTiposClick() {
 ListadoTipos lt= new ListadoTipos();
-centrar(lt);
+MainWindow.centrar(lt);
 desktopPane.add(lt);
 lt.setVisible(true);}
 
 protected void mnuABMCElementosClick() {
 ABMCElementos ed= new ABMCElementos();
-centrar(ed);
+MainWindow.centrar(ed);
 desktopPane.add(ed);
 ed.setVisible(true);
 }
@@ -245,31 +244,32 @@ ed.setVisible(true);
 
 protected void mnuListadoElementosClick() {
 ListadoElementos le= new ListadoElementos();
-centrar(le);
+MainWindow.centrar(le);
 desktopPane.add(le);
 le.setVisible(true);
 }
 
 protected void mnuReservaElementoClick() {
 	ReservaElemento rel=new ReservaElemento();
-	centrar(rel);
+	MainWindow.centrar(rel);
 	desktopPane.add(rel);
 	rel.setVisible(true);
 }
 
 protected void mnuSalirClick() {
 	// TODO Auto-generated method stub
-	frmSistemaDeReservas.dispose();
+	System.exit(0);
 }
 
 
 protected static void visibleUsuario()
 {
-	//frmSistemaDeReservas.getJMenuBar().getMenu(0).setVisible(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(0).getModel().setEnabled(true);
 	frmSistemaDeReservas.getJMenuBar().getMenu(1).getModel().setEnabled(false);
 	frmSistemaDeReservas.getJMenuBar().getMenu(2).getModel().setEnabled(false);;
 	frmSistemaDeReservas.getJMenuBar().getMenu(3).getModel().setEnabled(false);
-	//frmSistemaDeReservas.getJMenuBar().getMenu(4).setVisible(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(4).getModel().setEnabled(true);
+	
 }
 
 
@@ -277,18 +277,20 @@ protected static void visibleAdmin()
 {
 	frmSistemaDeReservas.getJMenuBar().getMenu(0).getModel().setEnabled(true);
 	frmSistemaDeReservas.getJMenuBar().getMenu(1).getModel().setEnabled(true);
-	frmSistemaDeReservas.getJMenuBar().getMenu(2).getModel().setEnabled(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(2).getModel().setEnabled(true);;
 	frmSistemaDeReservas.getJMenuBar().getMenu(3).getModel().setEnabled(true);
 	frmSistemaDeReservas.getJMenuBar().getMenu(4).getModel().setEnabled(true);
+	
 }
 
 protected static  void visibleEncargado()
 {
-	frmSistemaDeReservas.getJMenuBar().getMenu(0).setVisible(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(0).getModel().setEnabled(true);
 	frmSistemaDeReservas.getJMenuBar().getMenu(1).getModel().setEnabled(false);
-	frmSistemaDeReservas.getJMenuBar().getMenu(2).setVisible(true);
-	frmSistemaDeReservas.getJMenuBar().getMenu(3).setVisible(true);
-	frmSistemaDeReservas.getJMenuBar().getMenu(4).setVisible(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(2).getModel().setEnabled(true);;
+	frmSistemaDeReservas.getJMenuBar().getMenu(3).getModel().setEnabled(true);
+	frmSistemaDeReservas.getJMenuBar().getMenu(4).getModel().setEnabled(true);
+	
 }
 
 
@@ -298,19 +300,18 @@ public static void habilitarMenu(){
 		switch (usuarioAct.getCategoria().getId_categoria()){
 		case 1:
 		{
-			visibleEncargado();
+			MainWindow.visibleEncargado();
 		}
 		break;
-		
 		case 2:
 		{
-			visibleAdmin();
+			MainWindow.visibleAdmin();
 		}
 		break;
 		
 		case 3:
 		{
-			visibleUsuario();
+			MainWindow.visibleUsuario();
 		}
 		break;
 		
